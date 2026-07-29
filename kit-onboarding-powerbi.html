@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit d’onboarding Power BI — Karl, Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4F7F9;--card:#fff;--ink:#14232E;--ink-2:#4A5D6B;--line:#C9D4DB;--accent:#E84E1B;
+--display:'Space Grotesk',sans-serif;--body:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.7}
+.wrap{max-width:780px;margin:0 auto;padding:0 24px}
+nav{border-bottom:1px solid var(--line);background:rgba(244,247,249,.94);position:sticky;top:0;backdrop-filter:blur(6px)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:780px;margin:0 auto;padding:0 24px}
+.brand{font-family:var(--mono);font-size:.85rem;letter-spacing:.08em}
+.brand b{color:var(--accent)}
+.back{font-size:.85rem;color:var(--accent);text-decoration:none}
+.back:hover{text-decoration:underline}
+main{padding:56px 0 80px}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4vw,2.6rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:26px}
+h2{font-family:var(--display);font-weight:700;font-size:1.28rem;margin:44px 0 14px;padding-top:22px;border-top:1px solid var(--line)}
+h3{font-family:var(--display);font-weight:700;font-size:1.05rem;margin:26px 0 10px}
+p{margin-bottom:14px;color:var(--ink-2)}
+p strong,li strong{color:var(--ink);font-weight:600}
+hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+ul,ol{margin:0 0 16px 22px}
+li{margin-bottom:7px;color:var(--ink-2)}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:18px 0 24px;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{text-align:left;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);padding:10px 12px;border-bottom:1.5px solid var(--line);font-weight:500}
+td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+em{color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:26px 0;font-family:var(--mono);font-size:.72rem;color:var(--ink-2)}
+</style></head><body>
+<nav><div class="nav-in"><span class="brand">KRL<b>/</b>PORTFOLIO</span><a class="back" href="index.html">← Retour au portfolio</a></div></nav>
+<main><div class="wrap"><p class="eyebrow">Livrable WP-06 — accompagnement</p>
+<h1 id="kit-donboarding-power-bi">Kit d’onboarding Power BI</h1>
+<p><strong>Public visé</strong> — un référent métier non technicien qui
+reçoit aujourd’hui des extractions et souhaite répondre seul à une
+question récurrente. <strong>Durée</strong> — 45 minutes en session
+animée, ou 1 h 30 en autonomie. <strong>Support de données</strong> —
+extrait du modèle DWFA (accès mondial à l’eau potable) : une table de
+faits, trois dimensions, sujet compréhensible sans contexte métier
+préalable.</p>
+<hr />
+<h2 id="principe-directeur">Principe directeur</h2>
+<p>Le besoin métier passe avant l’outil. La première minute ne comporte
+aucun clic : elle pose la question à laquelle l’apprenant saura répondre
+seul à la fin de la session. Une formation qui commence par la
+description du ruban a déjà perdu son public.</p>
+<p>Promesse annoncée en ouverture : <em>« À la fin de cette session,
+vous saurez construire votre premier indicateur fiable — et surtout,
+vous saurez reconnaître quand vous méfier de votre propre chiffre.
+»</em></p>
+<hr />
+<h2 id="module-1-la-question-avant-loutil-8-min">Module 1 — La question
+avant l’outil (8 min)</h2>
+<p><strong>Objectif</strong> — formuler une question analysable avant
+d’ouvrir quoi que ce soit.</p>
+<p>Une question métier n’est exploitable que si elle précise trois
+choses : la mesure, la maille et la période. « Est-ce que la situation
+s’améliore ? » n’est pas exploitable. « Quelle est l’évolution du taux
+d’accès à l’eau potable par région entre 2000 et 2022 ? » l’est.</p>
+<p><strong>Exercice 1.</strong> Reformuler trois questions floues
+fournies dans le fichier en questions analysables.</p>
+<p><strong>Corrigé commenté.</strong> L’erreur la plus fréquente est
+d’oublier la maille. Sans elle, deux personnes produiront deux chiffres
+différents et corrects, ce qui déclenche exactement le type de désaccord
+que la formalisation doit prévenir.</p>
+<hr />
+<h2 id="module-2-du-fichier-au-modèle-12-min">Module 2 — Du fichier au
+modèle (12 min)</h2>
+<p><strong>Objectif</strong> — comprendre pourquoi les données arrivent
+en plusieurs tables reliées, et non en un seul tableau.</p>
+<p>Démonstration : connexion à la source, aperçu des tables, puis
+affichage de la vue Modèle. On explique le schéma en étoile par sa
+finalité — la table de faits porte ce que l’on mesure, les dimensions
+portent ce selon quoi on découpe. Chaque relation est une phrase : «
+chaque mesure appartient à un pays, chaque pays appartient à une région
+».</p>
+<p><strong>Exercice 2.</strong> Identifier dans le modèle fourni quelle
+table est la table de faits, et justifier en une phrase.</p>
+<p><strong>Corrigé commenté.</strong> La table de faits est celle dont
+on additionne les colonnes. Si additionner une colonne n’a aucun sens,
+on est dans une dimension. C’est le test le plus rapide.</p>
+<hr />
+<h2 id="module-3-construire-un-indicateur-de-bout-en-bout-15-min">Module
+3 — Construire un indicateur de bout en bout (15 min)</h2>
+<p><strong>Objectif</strong> — produire un visuel lisible répondant à la
+question du module 1.</p>
+<p>Déroulé : créer une mesure simple, la placer dans un visuel, ajouter
+une dimension en axe, puis appliquer un filtre. On construit un seul
+indicateur, complètement, plutôt que cinq à moitié.</p>
+<p>Règle énoncée à ce moment : un visuel répond à une question et une
+seule. Si l’on ne peut pas résumer un graphique en une phrase, il faut
+le scinder.</p>
+<p><strong>Exercice 3.</strong> Reproduire l’indicateur en changeant la
+dimension d’analyse, puis nommer le visuel avec la conclusion qu’il
+porte plutôt qu’avec un titre descriptif.</p>
+<p><strong>Corrigé commenté.</strong> « Taux d’accès par région » est un
+titre descriptif. « Trois régions concentrent l’essentiel du déficit
+d’accès » est un titre qui porte une conclusion — c’est celui qui fait
+gagner du temps au lecteur.</p>
+<hr />
+<h2
+id="module-4-le-piège-du-contexte-et-les-limites-de-lautonomie-10-min">Module
+4 — Le piège du contexte, et les limites de l’autonomie (10 min)</h2>
+<p><strong>Objectif</strong> — savoir reconnaître un chiffre qui a l’air
+juste sans l’être.</p>
+<p>Démonstration du piège classique : afficher un total qui ne
+correspond pas à la somme des lignes visibles. On montre l’écart à
+l’écran, puis on explique le mécanisme — la mesure est recalculée dans
+le contexte de filtre de chaque cellule, elle n’est pas additionnée.
+C’est le moment le plus important de la session : un apprenant qui a vu
+ce piège une fois développe le réflexe de vérification.</p>
+<p><strong>Exercice 4.</strong> Repérer, parmi trois visuels fournis,
+celui dont le total est trompeur, et expliquer pourquoi.</p>
+<p><strong>Ce que l’apprenant fait désormais seul</strong> — modifier un
+filtre, ajouter une dimension existante, exporter un visuel, vérifier un
+total.</p>
+<p><strong>Ce qui nécessite l’équipe data</strong> — créer une nouvelle
+mesure, modifier le modèle ou les relations, brancher une nouvelle
+source, publier un rapport destiné à un usage de pilotage.</p>
+<p>Poser cette frontière explicitement est ce qui distingue une
+formation d’une démonstration : on ne transmet pas seulement une
+capacité, on en délimite le périmètre de responsabilité.</p>
+<hr />
+<h2 id="erreurs-fréquentes-observées">Erreurs fréquentes observées</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Erreur</th>
+<th>Conséquence</th>
+<th>Correction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Additionner un pourcentage</td>
+<td>Total supérieur à 100 %</td>
+<td>Recalculer le ratio au niveau du total, jamais la somme des
+ratios</td>
+</tr>
+<tr class="even">
+<td>Filtrer sans le signaler dans le titre</td>
+<td>Chiffre juste, lecture fausse</td>
+<td>Mentionner le périmètre dans le titre du visuel</td>
+</tr>
+<tr class="odd">
+<td>Multiplier les visuels sur une page</td>
+<td>Aucune conclusion ne ressort</td>
+<td>Une page, un message principal</td>
+</tr>
+<tr class="even">
+<td>Utiliser une dimension texte libre</td>
+<td>Doublons invisibles</td>
+<td>Passer par une table de référence</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="fiche-formateur-animer-la-session-en-45-minutes">Fiche formateur
+— animer la session en 45 minutes</h2>
+<p><strong>Préparation</strong> — vérifier que chaque participant a le
+fichier ouvert avant le début. Prévoir un second écran ou un partage
+permettant de suivre pendant que les participants manipulent.</p>
+<p><strong>Rythme</strong> — annoncer la promesse en ouverture, puis
+alterner systématiquement démonstration et manipulation. Ne jamais
+enchaîner plus de quatre minutes de démonstration sans faire
+manipuler.</p>
+<p><strong>Questions à poser plutôt que de répondre</strong> — « d’après
+vous, quel chiffre devrait s’afficher ici ? » avant de le révéler ; «
+qu’est-ce qui a changé entre ces deux visuels ? » après une
+modification. L’anticipation ancre bien mieux que l’observation
+passive.</p>
+<p><strong>Points de décrochage identifiés</strong> — la vue Modèle en
+module 2, où le vocabulaire relationnel perd les participants : rester
+sur l’analogie de la phrase. Et le module 4, où l’écart de total peut
+être vécu comme un dysfonctionnement de l’outil : recadrer immédiatement
+en expliquant que le comportement est correct et intentionnel.</p>
+<p><strong>Clôture</strong> — faire reformuler par un participant la
+frontière entre ce qu’il fait seul et ce qui passe par l’équipe. Si
+cette frontière n’est pas claire à la sortie, la session a manqué son
+objectif principal.</p>
+<p><strong>Suivi</strong> — proposer un point de quinze minutes à une
+semaine, sur un cas réel apporté par le participant. C’est ce
+rendez-vous, plus que la session elle-même, qui transforme la formation
+en autonomie durable.</p>
+
+</div></main>
+<footer><div class="wrap">KRL/PORTFOLIO · Karl — Data Analyst, Decision Analytics &amp; BI · 2026</div></footer>
+</body></html>
