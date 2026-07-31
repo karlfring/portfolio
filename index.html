@@ -106,7 +106,7 @@ h2.sec-title{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,2
 .proj .k{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
 .proj .row+.k, .proj .tags+.k{margin-top:12px}
 .proj .link{margin-top:16px;font-size:.85rem;font-weight:600}
-.proj .link.pend{color:var(--ink-2);font-weight:400;font-style:italic}
+.proj .link.spec{color:var(--ink-2);font-weight:400;font-family:var(--mono);font-size:.72rem;line-height:1.5;border-top:1px solid var(--line);padding-top:11px;margin-top:16px}
 .appui{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media(max-width:900px){.appui{grid-template-columns:1fr}}
 .proj.small{padding:20px}
@@ -240,7 +240,7 @@ footer p{color:var(--ink-2);font-size:.95rem;max-width:48ch}
       <p class="pitch">Transformation de données DVF + INSEE + référentiel géographique en 4 tables normalisées sous Databricks (PySpark, SQL, Delta), avec vérifications d'intégrité systématiques. Le jumeau méthodologique d'un contexte lakehouse industriel : sources hétérogènes, volumétrie, interopérabilité.</p>
       <div class="row"><span class="k">Compétences</span><div class="tags"><span class="tag">Data engineering cloud</span><span class="tag">Delta Lake</span><span class="tag">Qualité de données</span></div>
       <span class="k">Soft skills</span><div class="tags"><span class="tag">Rigueur</span><span class="tag">Documentation</span></div></div>
-      <p class="link pend">Lien livrable — à publier (finalisation en cours)</p>
+      <p class="link spec">Notebook Databricks · 4 tables Delta · contrôles d'intégrité</p>
     </article>
     <article class="proj">
       <p class="code"><span>VIT-02 · PRÉDIRE</span><span>TERMINÉ</span></p>
@@ -248,7 +248,7 @@ footer p{color:var(--ink-2);font-size:.95rem;max-width:48ch}
       <p class="pitch">Pour un industriel agroalimentaire visant l'export : 166 pays, 8 variables (FAO), ACP + CAH + K-means, score d'attractivité et TOP 15 de pays cibles. Le machine learning au service d'une décision stratégique — le modèle n'est pas la finalité, la recommandation l'est.</p>
       <div class="row"><span class="k">Compétences</span><div class="tags"><span class="tag">ML non supervisé</span><span class="tag">Aide à la décision</span><span class="tag">Python</span></div>
       <span class="k">Soft skills</span><div class="tags"><span class="tag">Vulgarisation</span><span class="tag">Recommandation</span></div></div>
-      <p class="link pend">Lien livrable — à ajouter</p>
+      <p class="link spec">Notebook Python · ACP, dendrogramme, K-means · TOP 15 commenté</p>
     </article>
     <article class="proj">
       <p class="code"><span>VIT-03 · DÉCIDER</span><span>TERMINÉ</span></p>
@@ -256,7 +256,7 @@ footer p{color:var(--ink-2);font-size:.95rem;max-width:48ch}
       <p class="pitch">Dashboard Power BI de 4 pages sur l'accès mondial à l'eau potable pour une ONG : modèle en étoile, parcours de lecture pensé pour des décideurs non techniques, kit de soutenance complet. La preuve que je sais rendre un sujet complexe lisible et actionnable.</p>
       <div class="row"><span class="k">Compétences</span><div class="tags"><span class="tag">Power BI · DAX</span><span class="tag">Modèle en étoile</span><span class="tag">Storytelling</span></div>
       <span class="k">Soft skills</span><div class="tags"><span class="tag">Pédagogie</span><span class="tag">Communication orale</span></div></div>
-      <p class="link pend">Lien livrable — à ajouter</p>
+      <p class="link spec">Rapport Power BI 4 pages · modèle en étoile · kit de soutenance</p>
     </article>
   </div>
 
@@ -266,21 +266,21 @@ footer p{color:var(--ink-2);font-size:.95rem;max-width:48ch}
       <h3>Profil sociodémographique — dbt + Snowflake</h3>
       <p class="pitch">Pipeline dbt/Snowflake comparant les apprenants Data à la population française (INSEE) via un indice de représentativité, conforme RGPD. Angle : gouvernance et confidentialité.</p>
       <div class="tags"><span class="tag">dbt</span><span class="tag">RGPD</span></div>
-      <p class="link pend">Lien — à ajouter</p>
+      <p class="link spec">Projet dbt documenté · indice de représentativité · registre RGPD</p>
     </article>
     <article class="proj small">
       <p class="code"><span>APP-02</span><span>TERMINÉ</span></p>
       <h3>Détection de faux billets — ONCFM</h3>
       <p class="pitch">Classification sur 1 500 billets à partir de 6 mesures géométriques : imputation par régression, comparaison régression logistique vs KNN. Transposable : détection d'anomalies sur mesures physiques — la logique du contrôle qualité industriel.</p>
       <div class="tags"><span class="tag">ML supervisé</span><span class="tag">scikit-learn</span></div>
-      <p class="link pend">Lien — à ajouter</p>
+      <p class="link spec">Notebook de modélisation · matrices de confusion comparées</p>
     </article>
     <article class="proj small">
       <p class="code"><span>APP-03</span><span>TERMINÉ</span></p>
       <h3>Analyse des ventes — librairie en ligne</h3>
       <p class="pitch">CA temporel et par catégories, segmentation clients (courbe de Lorenz), 5 études de corrélation avec tests statistiques (χ², Pearson/Spearman, Mann-Whitney). La preuve d'une rigueur statistique avant toute conclusion.</p>
       <div class="tags"><span class="tag">Tests statistiques</span><span class="tag">Segmentation</span></div>
-      <p class="link pend">Lien — à ajouter</p>
+      <p class="link spec">Notebook d'analyse · courbe de Lorenz · 5 tests statistiques</p>
     </article>
   </div>
 </div></section>
