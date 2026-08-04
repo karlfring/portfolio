@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Procédure de dataviz · Karl, Data Analyst</title>
+<title>Mes standards de data visualisation · Karl Akpovi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>:root{--paper:#F4F7F9;--card:#fff;--ink:#14232E;--ink-2:#4A5D6B;--line:#C9D4DB;--accent:#E84E1B;
---display:'Space Grotesk',sans-serif;--body:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace}
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F2F1ED;--raise:#fff;--ink:#1A1D21;--ink-2:#5F656D;--ink-3:#8A9099;--rule:#D6D4CE;--deep:#2E2BD1;
+--display:'Bricolage Grotesque',sans-serif;--body:'Newsreader',serif;--util:'JetBrains Mono',monospace}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.7}.wrap{max-width:780px;margin:0 auto;padding:0 24px}
-nav{border-bottom:1px solid var(--line);background:rgba(244,247,249,.94);position:sticky;top:0;backdrop-filter:blur(6px)}.nav-in{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:780px;margin:0 auto;padding:0 24px}.brand{font-family:var(--mono);font-size:.85rem;letter-spacing:.08em}.brand b{color:var(--accent)}.back{font-size:.85rem;color:var(--accent);text-decoration:none}.back:hover{text-decoration:underline}
-main{padding:56px 0 80px}.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-h1{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4vw,2.6rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:26px}
-h2{font-family:var(--display);font-weight:700;font-size:1.28rem;margin:44px 0 14px;padding-top:22px;border-top:1px solid var(--line)}
-h3{font-family:var(--display);font-weight:700;font-size:1.05rem;margin:26px 0 10px}
-p{margin-bottom:14px;color:var(--ink-2)}
-p strong,li strong{color:var(--ink);font-weight:600}
-hr{border:none;border-top:1px solid var(--line);margin:34px 0}
-ul,ol{margin:0 0 16px 22px}
-li{margin-bottom:7px;color:var(--ink-2)}
-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:18px 0 24px;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
-th{text-align:left;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);padding:10px 12px;border-bottom:1.5px solid var(--line);font-weight:500}
-td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.68;font-optical-sizing:auto}
+.wrap{max-width:760px;margin:0 auto;padding:0 28px}
+a{color:var(--deep);text-decoration:none;text-underline-offset:3px}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--deep);outline-offset:3px}
+nav{border-bottom:1px solid var(--rule)}
+.nav-in{max-width:760px;margin:0 auto;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;font-family:var(--util);font-size:.78rem;letter-spacing:.1em}
+.nav-in .who{color:var(--ink-2);text-transform:uppercase}
+main{padding:52px 0 76px}
+.eyebrow{font-family:var(--util);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,4.4vw,2.7rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:26px}
+h2{font-family:var(--display);font-weight:600;font-size:1.3rem;letter-spacing:-.012em;margin:44px 0 12px;padding-top:22px;border-top:1px solid var(--rule)}
+h3{font-family:var(--display);font-weight:600;font-size:1.05rem;margin:26px 0 8px}
+p{margin-bottom:15px;color:var(--ink-2)}
+p strong,li strong,td strong{color:var(--ink);font-weight:600}
+ul,ol{margin:0 0 18px 24px}
+li{margin-bottom:8px;color:var(--ink-2)}
+li::marker{color:var(--deep)}
+table{width:100%;border-collapse:collapse;font-size:.94rem;margin:20px 0 26px;background:var(--raise);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+th{text-align:left;font-family:var(--util);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--deep);padding:11px 14px;border-bottom:1px solid var(--rule);font-weight:500}
+td{padding:11px 14px;border-bottom:1px solid var(--rule);color:var(--ink-2);vertical-align:top}
 tr:last-child td{border-bottom:none}
-em{color:var(--ink)}
-footer{border-top:1px solid var(--line);padding:26px 0;font-family:var(--mono);font-size:.72rem;color:var(--ink-2)}
+hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+footer{border-top:1px solid var(--rule);padding:24px 0;font-family:var(--util);font-size:.7rem;color:var(--ink-3);letter-spacing:.04em}
 </style></head><body>
-<nav><div class="nav-in"><span class="brand">KRL<b>/</b>PORTFOLIO</span><a class="back" href="index.html">← Retour au portfolio</a></div></nav>
-<main><div class="wrap"><p class="eyebrow">Livrable WP-07 · documentation</p>
+<nav><div class="nav-in"><span class="who">Karl Akpovi</span><a href="index.html">← Retour au portfolio</a></div></nav>
+<main><div class="wrap"><p class="eyebrow">Méthode de travail</p>
 <h1 id="procédure-créer-un-graphique-danalyse-soigné">Procédure : créer
 un graphique d’analyse soigné</h1>
 <p><strong>Objet :</strong> garantir qu’un graphique produit par
@@ -166,5 +174,5 @@ signale. Un axe qui part de zéro. Une note qui avertit. Un contrôle
 avant envoi.</p>
 
 </div></main>
-<footer><div class="wrap">KRL/PORTFOLIO · Karl: Data Analyst, Decision Analytics &amp; BI · 2026</div></footer>
+<footer><div class="wrap">Karl Akpovi · Data Analyst, Decision Analytics et BI · 2026</div></footer>
 </body></html>
