@@ -40,12 +40,13 @@ header{padding:88px 0 64px}
 .thesis .to{color:var(--ink)}
 .lede{margin-top:30px;max-width:56ch;font-size:1.14rem;color:var(--ink-2)}
 .lede b{color:var(--ink);font-weight:600}
+.hero-actions{display:contents}
 .tags{margin-top:30px;display:flex;flex-wrap:wrap;gap:8px}
 .tag{font-family:var(--util);font-size:.72rem;letter-spacing:.04em;padding:6px 11px;border:1px solid var(--rule);border-radius:100px;color:var(--ink-2);background:var(--raise)}
 .cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;font-family:var(--util);font-size:.82rem}
 .cta a.primary{background:var(--deep);color:#fff;padding:11px 20px;border-radius:6px}
 .cta a.primary:hover{background:#241FA8;text-decoration:none}
-.cta a.ghost{color:var(--ink-2);border-bottom:1px solid var(--rule);padding-bottom:2px}
+.cta a.ghost{color:var(--ink-2);border-bottom:1px solid var(--rule);padding:11px 2px;min-height:44px;display:inline-flex;align-items:center}
 .cta a.ghost:hover{color:var(--deep);border-color:var(--deep);text-decoration:none}
 
 /* sections */
@@ -108,20 +109,47 @@ h2{font-family:var(--display);font-weight:600;font-size:1.62rem;letter-spacing:-
 .res .go{font-family:var(--util);font-size:.72rem;color:var(--deep);margin-top:12px;display:block}
 @media(max-width:720px){.res{grid-template-columns:1fr}}
 
+/* figures */
+figure{margin:24px 0 0}
+figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:8px;background:var(--raise)}
+figure figcaption{font-size:.9rem;color:var(--ink-2);margin-top:11px;line-height:1.5}
+figure figcaption b{color:var(--ink);font-weight:600}
+.shots{display:grid;gap:22px}
+
 /* contact */
 footer{padding:64px 0 78px;border-top:1px solid var(--rule)}
 footer h2{margin-bottom:14px}
 footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
-.reach{display:flex;flex-wrap:wrap;gap:12px 26px;font-family:var(--util);font-size:.86rem}
+.reach{display:flex;flex-wrap:wrap;gap:4px 26px;font-family:var(--util);font-size:.86rem}
+.reach a{min-height:44px;display:inline-flex;align-items:center}
 .colophon{margin-top:52px;font-family:var(--util);font-size:.7rem;color:var(--ink-3);letter-spacing:.04em}
+/* mobile : densité */
+@media(max-width:720px){
+  .hero-actions{display:flex;flex-direction:column-reverse}
+  .hero-actions .cta{margin-top:22px}
+  .hero-actions .tags{margin-top:20px}
+  body{font-size:17px}
+  header{padding:52px 0 40px}
+  .name{margin-bottom:26px}
+  .lede{margin-top:22px;font-size:1.06rem}
+  .cta{gap:10px 18px}
+  section{padding:38px 0}
+  .sec-label{margin-bottom:18px}
+  h2{margin-bottom:10px}
+  .intro{margin-bottom:26px}
+  .proj{padding:22px 20px}
+  footer{padding:40px 0 52px}
+  .colophon{margin-top:34px}
+}
 </style>
 </head>
 <body>
 
 <header><div class="wrap">
   <p class="name">Karl Akpovi · Data Analyst</p>
-  <h1 class="thesis"><span class="from">Une question métier floue.</span> <span class="arrow">↓</span> <span class="to">Une décision qu'on peut défendre.</span></h1>
+  <h1 class="thesis"><span class="from">Une question métier floue.</span> <span class="arrow" aria-hidden="true">↓</span> <span class="to">Une décision qu'on peut défendre.</span></h1>
   <p class="lede">C'est le trajet que je fais tous les jours, de la modélisation de la donnée jusqu'à la restitution, avec une obsession : <b>qu'un chiffre serve à trancher</b>, pas seulement à être affiché. Alternance en cours à la direction technique d'Orange, disponible en septembre 2026.</p>
+  <div class="hero-actions">
   <div class="tags">
     <span class="tag">Power BI · DAX</span>
     <span class="tag">SQL</span>
@@ -134,12 +162,14 @@ footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
     <a class="ghost" href="#projets">Voir les projets</a>
     <a class="ghost" href="https://github.com/karlfring">GitHub</a>
   </div>
+  </div>
 </div></header>
 
+<main>
 <section id="projets"><div class="wrap">
   <p class="sec-label">Projets</p>
   <h2>Quatre projets, quatre décisions</h2>
-  <p class="intro">Je les présente dans l'ordre qui compte pour celui qui recrute : la question posée, ce que j'ai construit, et ce que le résultat permet de décider. Le code et les livrables détaillés sont disponibles sur demande.</p>
+  <p class="intro">Je les présente dans l'ordre qui compte pour celui qui recrute : la question posée, ce que j'ai construit, et ce que le résultat permet de décider. Écrivez-moi si vous souhaitez voir le détail d'un projet : notebooks, requêtes ou rapport complet.</p>
 
   <article class="proj">
     <div class="proj-top">
@@ -150,6 +180,16 @@ footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
       <div class="link"><span class="k">La question</span><p>Une ONG dispose de vingt ans de données OMS et FAO sur l'accès à l'eau. Où concentrer des moyens limités ?</p></div>
       <div class="link"><span class="k">Ce que j'ai construit</span><p>Un tableau de bord de quatre pages : modèle en étoile, quatorze mesures DAX, thème accessible aux daltonismes.</p></div>
       <div class="link out"><span class="k">La décision rendue possible</span><p>Identifier les zones prioritaires et arbitrer entre couverture large et intensité locale.</p></div>
+    </div>
+    <div class="shots">
+    <figure>
+      <img src="img/dwfa-ciblage.webp" width="1098" height="628" loading="lazy" decoding="async" alt="Nuage de points croisant accès basique et accès sécurisé, chaque pays étant classé en création, modernisation, consulting ou cas mixte.">
+      <figcaption><b>Comment se lit ce graphique.</b> Chaque bulle est un pays. En abscisse l'accès basique à l'eau, en ordonnée l'accès sécurisé. Les pays situés en bas à gauche, en orange, cumulent les deux retards : c'est là qu'il faut créer des infrastructures. Ceux du haut à droite n'ont plus besoin que d'accompagnement. La page transforme ainsi deux indicateurs en une règle d'affectation des moyens.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/dwfa-vue-monde.webp" width="1086" height="614" loading="lazy" decoding="async" alt="Page monde du tableau de bord : indicateurs clés, carte mondiale et classements des pays les plus en retard et les plus peuplés sans accès.">
+      <figcaption><b>La page d'entrée.</b> Les titres portent la conclusion plutôt que le nom de la mesure, pour qu'un décideur pressé sache quoi retenir sans lire les axes.</figcaption>
+    </figure>
     </div>
   </article>
 
@@ -270,6 +310,8 @@ footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
   <div class="edu"><p class="when">2018 à 2022</p><div><b>Licence Économie et Gestion</b><span>Université Paris-Est Créteil. Mathématiques, statistiques, économétrie, comptabilité, management.</span></div></div>
   <div class="edu"><p class="when">Langues</p><div><b>Français langue maternelle, anglais professionnel, espagnol intermédiaire</b><span>Ouvert à un poste en France comme à l'international.</span></div></div>
 </div></section>
+
+</main>
 
 <footer><div class="wrap">
   <h2>Parlons-en</h2>
