@@ -2,25 +2,23 @@
 
 Site publié sur [karlfring.github.io/portfolio](https://karlfring.github.io/portfolio/).
 
-Positionnement : Decision Analytics et BI stratégique. Chaque projet est
-présenté en trois temps : la question posée, ce que j'ai construit, et la
-décision que le résultat rend possible.
+Chaque projet est présenté en trois temps : contexte, réalisation, résultat.
 
 ## Contenu
 
 | Fichier | Rôle |
 |---|---|
-| `index.html` | page d'accueil : projets, parcours, boîte à outils, formation, contact |
+| `index.html` | page d'accueil : projets, expérience, compétences, formation, contact |
 | `vgc.html` | étude de cas de l'[observatoire du métagame VGC](https://github.com/karlfring/vgc-meta-observatory) |
-| `procedure-graphique-analyse.html` | mes standards de data visualisation |
-| `kit-onboarding-powerbi.html` | mon kit de formation Power BI pour référents métiers |
+| `procedure-graphique-analyse.html` | procédure pour créer un graphique d'analyse |
+| `kit-onboarding-powerbi.html` | kit de formation Power BI pour référents métier |
+| `style.css` | feuille de style commune |
 | `img/` | captures des tableaux de bord, au format WebP |
 
 ## Technique
 
 HTML et CSS statiques, sans framework ni étape de build, publiés par GitHub
-Pages depuis la branche `main`. Conçu pour le mobile et l'accessibilité :
-contrastes vérifiés, cibles tactiles de 44 px, respect de
+Pages depuis la branche `main`. Police système, mise en page lisible sur mobile.
 
 ## Contact
 
