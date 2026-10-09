@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Karl Akpovi — Data Analyst, Decision Analytics</title>
-<meta name="description" content="Data Analyst spécialisé en BI décisionnelle. Je transforme des questions métiers floues en décisions qu'on peut défendre. Power BI, SQL, dbt, Snowflake, Python.">
+<title>Karl Akpovi · Data Analyst, Decision Analytics</title>
+<meta name="description" content="Data Analyst spécialisé en BI décisionnelle, disponible en Île-de-France ou en télétravail. Je transforme des questions métiers floues en décisions qu'on peut défendre. Power BI, SQL, dbt, Snowflake, Python.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -74,6 +74,13 @@ h2{font-family:var(--display);font-weight:600;font-size:1.62rem;letter-spacing:-
   .link:first-child{padding-top:0;border-top:none;margin-top:0}
   .link.out{margin:16px 0 0;padding:16px;border-radius:8px;background:var(--deep-soft);border-top:none}
 }
+
+/* projet phare */
+.proj.featured{border-color:var(--deep);box-shadow:0 1px 0 var(--deep)}
+.badge{display:inline-block;font-family:var(--util);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--deep);background:var(--deep-soft);padding:4px 9px;border-radius:100px;margin-bottom:10px}
+.proj-links{margin-top:20px;display:flex;flex-wrap:wrap;gap:6px 24px;font-family:var(--util);font-size:.82rem}
+.proj-links a{min-height:44px;display:inline-flex;align-items:center}
+.proj-links a::after{content:"→";margin-left:.4em}
 
 /* expérience */
 .job{display:grid;grid-template-columns:200px 1fr;gap:26px;padding:24px 0;border-top:1px solid var(--rule)}
@@ -148,7 +155,7 @@ footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
 <header><div class="wrap">
   <p class="name">Karl Akpovi · Data Analyst</p>
   <h1 class="thesis"><span class="from">Une question métier floue.</span> <span class="arrow" aria-hidden="true">↓</span> <span class="to">Une décision qu'on peut défendre.</span></h1>
-  <p class="lede">C'est le trajet que je fais tous les jours, de la modélisation de la donnée jusqu'à la restitution, avec une obsession : <b>qu'un chiffre serve à trancher</b>, pas seulement à être affiché. Alternance en cours à la direction technique d'Orange, disponible en septembre 2026.</p>
+  <p class="lede">C'est le trajet que je fais tous les jours, de la modélisation de la donnée jusqu'à la restitution, avec une obsession : <b>qu'un chiffre serve à trancher</b>, pas seulement à être affiché. Deux ans d'alternance à la direction technique d'Orange, titre RNCP niveau 6 en poche. <b>Disponible dès maintenant</b>, en Île-de-France ou en télétravail.</p>
   <div class="hero-actions">
   <div class="tags">
     <span class="tag">Power BI · DAX</span>
@@ -160,6 +167,7 @@ footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
   <div class="cta">
     <a class="primary" href="mailto:karl.akpovi@gmail.com">Me contacter</a>
     <a class="ghost" href="#projets">Voir les projets</a>
+    <a class="ghost" href="https://www.linkedin.com/in/karlakpovi">LinkedIn</a>
     <a class="ghost" href="https://github.com/karlfring">GitHub</a>
   </div>
   </div>
@@ -168,8 +176,30 @@ footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
 <main>
 <section id="projets"><div class="wrap">
   <p class="sec-label">Projets</p>
-  <h2>Quatre projets, quatre décisions</h2>
-  <p class="intro">Je les présente dans l'ordre qui compte pour celui qui recrute : la question posée, ce que j'ai construit, et ce que le résultat permet de décider. Écrivez-moi si vous souhaitez voir le détail d'un projet : notebooks, requêtes ou rapport complet.</p>
+  <h2>Cinq projets, cinq décisions</h2>
+  <p class="intro">Je les présente dans l'ordre qui compte pour celui qui recrute : la question posée, ce que j'ai construit, et ce que le résultat permet de décider. Le premier est un projet personnel que je fais vivre chaque mois ; les autres sont issus de ma formation.</p>
+
+  <article class="proj featured">
+    <div class="proj-top">
+      <div>
+        <span class="badge">Projet personnel · mis à jour chaque mois</span>
+        <h3>Observatoire du métagame Pokémon VGC</h3>
+      </div>
+      <span class="stack">Python · pandas · GitHub Actions · modèle en étoile · Power BI</span>
+    </div>
+    <div class="chain">
+      <div class="link"><span class="k">La question</span><p>Sur un marché qui se réorganise chaque mois, qu'est-ce qui a changé, et qui adopte les nouveautés en premier ? Aucune source ne garde l'historique.</p></div>
+      <div class="link"><span class="k">Ce que j'ai construit</span><p>Un pipeline Python testé et automatisé qui archive chaque mois plus de 500 000 équipes, un modèle en étoile traçable et un tableau de bord interactif.</p></div>
+      <div class="link out"><span class="k">La décision rendue possible</span><p>Distinguer ce qui est populaire de ce qui est choisi par les meilleurs, comme on distingue part de marché et valeur d'un segment.</p></div>
+    </div>
+    <figure>
+      <a href="vgc.html"><img src="img/vgc-apercu.webp" width="1100" height="397" loading="lazy" decoding="async" alt="Haut du tableau de bord de l'observatoire : synthèse, podium des Pokémon les plus joués et indicateurs clés."></a>
+    </figure>
+    <div class="proj-links">
+      <a href="vgc.html">Lire l'étude de cas</a>
+      <a href="https://github.com/karlfring/vgc-meta-observatory">Voir le code</a>
+    </div>
+  </article>
 
   <article class="proj">
     <div class="proj-top">
@@ -277,7 +307,7 @@ footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
   <h2>Ce que je sais faire, par étape</h2>
   <p class="intro">Rangé selon le trajet de la donnée, parce que c'est ainsi que je travaille : rien ne sert de soigner une restitution posée sur un modèle bancal.</p>
   <div class="tools">
-    <div class="tool"><span class="k">Modéliser</span><p>SQL, dbt, Snowflake, BigQuery, GCP, Databricks, modélisation en étoile, dictionnaire de données</p></div>
+    <div class="tool"><span class="k">Modéliser</span><p>SQL, dbt, Snowflake, BigQuery, GCP, Databricks, modélisation en étoile, dictionnaire de données, tests et automatisation (pytest, GitHub Actions)</p></div>
     <div class="tool"><span class="k">Analyser</span><p>Python (pandas, scikit-learn), statistiques et tests d'hypothèses, ACP, clustering, détection d'anomalies</p></div>
     <div class="tool"><span class="k">Restituer</span><p>Power BI (DAX, Power Query), Looker Studio, data storytelling, conception orientée décision</p></div>
     <div class="tool"><span class="k">Cadrer et transmettre</span><p>Reformulation du besoin, documentation, conformité RGPD, Git, formation d'utilisateurs métiers</p></div>
@@ -305,19 +335,20 @@ footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
 <section><div class="wrap">
   <p class="sec-label">Formation</p>
   <h2>Diplômes et langues</h2>
-  <div class="edu"><p class="when">2024 à 2026</p><div><b>Titre RNCP niveau 6 Data Analyst, spécialisation BI</b><span>OpenClassrooms et CFA Orange, Lyon. Python, SQL, Power BI, BigQuery, data visualisation, stratégie et finance.</span></div></div>
+  <div class="edu"><p class="when">2024 à 2026</p><div><b>Titre RNCP niveau 6 Data Analyst, spécialisation BI, obtenu</b><span>OpenClassrooms et CFA Orange, Lyon. Python, SQL, Power BI, BigQuery, data visualisation, stratégie et finance.</span></div></div>
   <div class="edu"><p class="when">2022 à 2023</p><div><b>Bootcamp Data Analytics</b><span>Le Wagon, Paris. SQL, Python, Looker Studio, Power BI, BigQuery.</span></div></div>
   <div class="edu"><p class="when">2018 à 2022</p><div><b>Licence Économie et Gestion</b><span>Université Paris-Est Créteil. Mathématiques, statistiques, économétrie, comptabilité, management.</span></div></div>
-  <div class="edu"><p class="when">Langues</p><div><b>Français langue maternelle, anglais professionnel, espagnol intermédiaire</b><span>Ouvert à un poste en France comme à l'international.</span></div></div>
+  <div class="edu"><p class="when">Langues</p><div><b>Français langue maternelle, anglais professionnel, espagnol intermédiaire</b><span>Poste recherché en Île-de-France ou en télétravail.</span></div></div>
 </div></section>
 
 </main>
 
 <footer><div class="wrap">
   <h2>Parlons-en</h2>
-  <p class="pitch">Je cherche un poste de data analyst orienté décision, à partir de septembre 2026. Si votre sujet consiste à rendre une décision plus sûre à partir de données imparfaites, c'est exactement ce qui m'intéresse.</p>
+  <p class="pitch">Je cherche un poste de data analyst orienté décision, disponible dès maintenant. Si votre sujet consiste à rendre une décision plus sûre à partir de données imparfaites, c'est exactement ce qui m'intéresse.</p>
   <div class="reach">
     <a href="mailto:karl.akpovi@gmail.com">karl.akpovi@gmail.com</a>
+    <a href="https://www.linkedin.com/in/karlakpovi">linkedin.com/in/karlakpovi</a>
     <a href="https://github.com/karlfring">github.com/karlfring</a>
   </div>
   <p class="colophon">Karl Akpovi · Data Analyst, Decision Analytics et BI · 2026</p>
