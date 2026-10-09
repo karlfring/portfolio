@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Observatoire du métagame VGC · Karl Akpovi</title>
+<meta name="description" content="Étude de cas : un pipeline Python qui archive chaque mois les statistiques Smogon du jeu compétitif Pokémon, un modèle en étoile et un tableau de bord.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+<a class="back" href="./">Retour au portfolio</a>
+
+<header>
+  <h1>Observatoire du métagame Pokémon VGC</h1>
+  <p class="role">Projet personnel, mis à jour chaque mois depuis septembre 2026</p>
+  <p class="meta">Python, pandas, GitHub Actions, modèle en étoile, Power BI</p>
+  <p>Smogon publie chaque mois les statistiques d'usage du jeu compétitif Pokémon Champions. Les sites spécialisés n'affichent que le mois en cours. J'ai construit un pipeline qui archive ces données chaque mois, pour pouvoir suivre leur évolution et les analyser.</p>
+  <p class="links"><a href="https://github.com/karlfring/vgc-meta-observatory">Code source et documentation</a></p>
+</header>
+
+<main>
+<h2>Chiffres clés de septembre 2026</h2>
+<table>
+  <tbody>
+    <tr><td>Équipes analysées</td><td class="num">446 954</td></tr>
+    <tr><td>Batailles</td><td class="num">223 477</td></tr>
+    <tr><td>Pokémon joués au moins une fois</td><td class="num">341</td></tr>
+    <tr><td>Tests automatisés exécutés à chaque mise à jour</td><td class="num">15</td></tr>
+  </tbody>
+</table>
+
+<h2>Pourquoi ce sujet</h2>
+<p>Je joue moi-même en compétition, ce qui m'aide à vérifier que les résultats ont du sens. Surtout, le problème se transpose directement à un marché :</p>
+<table>
+  <thead><tr><th>Dans le jeu</th><th>Dans une entreprise</th></tr></thead>
+  <tbody>
+    <tr><td>Usage d'un Pokémon</td><td>Part de marché d'un produit</td></tr>
+    <tr><td>Adoption par les meilleurs joueurs</td><td>Adoption par les clients les plus exigeants</td></tr>
+    <tr><td>Coéquipiers fréquents</td><td>Produits achetés ensemble</td></tr>
+    <tr><td>Adversaires qui le mettent en difficulté</td><td>Concurrents directs</td></tr>
+    <tr><td>Un relevé par mois</td><td>Suivi de tendance</td></tr>
+  </tbody>
+</table>
+
+<h2>Fonctionnement</h2>
+<ol>
+  <li><strong>Collecte.</strong> Le pipeline télécharge les fichiers d'usage et de movesets pour quatre niveaux de classement, de 0 (tous les joueurs comptent autant) à 1760 (les mieux classés comptent davantage). Un mois déjà récupéré n'est jamais retéléchargé.</li>
+  <li><strong>Transformation.</strong> Des expressions régulières convertissent les tableaux texte en lignes : usage, objets, capacités, talents, coéquipiers et confrontations.</li>
+  <li><strong>Modèle de données.</strong> Les données sont rangées en modèle en étoile : quatre dimensions (Pokémon, date, régulation, niveau de classement) et cinq tables de faits.</li>
+  <li><strong>Traçabilité.</strong> Chaque fichier ingéré est enregistré avec son empreinte SHA-256 et son nombre de batailles, ce qui permet de vérifier n'importe quel chiffre.</li>
+  <li><strong>Automatisation.</strong> GitHub Actions lance le pipeline le 2 de chaque mois : tests, ingestion, puis enregistrement des nouvelles données dans le dépôt.</li>
+  <li><strong>Restitution.</strong> Un tableau de bord en trois onglets (vue d'ensemble, fiche par Pokémon, classement) et un modèle Power BI avec ses mesures DAX.</li>
+</ol>
+
+<h2>Résultats de septembre 2026</h2>
+<p>Rillaboom est présent dans plus d'une équipe sur deux (54,7 %). Les dix Pokémon les plus joués occupent 45,3 % des emplacements, et 32 Pokémon dépassent 5 % d'usage.</p>
+<figure>
+  <img src="img/vgc-apercu.webp" width="1100" height="397" loading="lazy" decoding="async" alt="Haut du tableau de bord : phrase de synthèse, podium des six Pokémon les plus joués avec leur usage, et quatre indicateurs clés.">
+  <figcaption>Vue d'ensemble du tableau de bord.</figcaption>
+</figure>
+
+<h3>Popularité et adoption par les meilleurs joueurs</h3>
+<p>L'usage indique qu'un Pokémon est choisi, pas qu'il est efficace. Pour aller plus loin, je compare son usage chez les joueurs les mieux classés (niveau 1760) à son usage sur l'ensemble des joueurs (niveau 0). Un ratio supérieur à 1 signifie que les meilleurs joueurs le prennent plus souvent que la moyenne.</p>
+<p>Par exemple, Charizard-Mega-Y passe de 11,9 % d'usage sur l'ensemble des joueurs à 21,1 % chez les mieux classés, soit un ratio de 1,78. Golisopod-Mega fait l'inverse : de 12,7 % à 6,9 %.</p>
+<p>En croisant ce ratio avec la popularité (seuil de 10 % d'usage), on obtient quatre groupes parmi les 63 Pokémon qui dépassent 1 % d'usage :</p>
+<table>
+  <thead><tr><th>Groupe</th><th>Définition</th><th class="num">Nombre</th><th>Exemples</th></tr></thead>
+  <tbody>
+    <tr><td>Staples</td><td>populaires, et plus joués par les meilleurs</td><td class="num">14</td><td>Rillaboom, Incineroar, Kingambit</td></tr>
+    <tr><td>Pépites</td><td>peu joués, mais plus joués par les meilleurs</td><td class="num">15</td><td>Venusaur, Kommo-o, Garchomp</td></tr>
+    <tr><td>Pièges</td><td>populaires, mais moins joués par les meilleurs</td><td class="num">5</td><td>Salamence-Mega, Indeedee-F, Farigiraf</td></tr>
+    <tr><td>Niches</td><td>ni l'un ni l'autre</td><td class="num">29</td><td></td></tr>
+  </tbody>
+</table>
+<p>Les pépites sont les plus intéressantes à suivre : ce sont elles qui pourraient gagner en popularité les mois suivants.</p>
+<figure class="narrow">
+  <img src="img/vgc-quadrants.webp" width="1100" height="1122" loading="lazy" decoding="async" alt="Nuage de points des 63 Pokémon au-dessus de 1 % d'usage : usage en abscisse, ratio entre l'usage chez les mieux classés et sur l'ensemble des joueurs en ordonnée, deux lignes de seuil découpant quatre groupes.">
+  <figcaption>Chaque point est un Pokémon. Plus il est à droite, plus il est joué. Plus il est haut, plus les meilleurs joueurs le choisissent par rapport à la moyenne.</figcaption>
+</figure>
+<figure>
+  <img src="img/vgc-fiche.webp" width="1100" height="438" loading="lazy" decoding="async" alt="Fiche de Rillaboom : objets, capacités, talents et coéquipiers les plus fréquents, chacun avec son taux d'adoption.">
+  <figcaption>Fiche d'un Pokémon : objets, capacités, talents et coéquipiers les plus fréquents.</figcaption>
+</figure>
+
+<h2>Contrôle qualité</h2>
+<p>J'ai trouvé deux erreurs en comparant les résultats du pipeline aux fichiers sources. Aucune ne provoquait de message d'erreur.</p>
+<p><strong>Une section ignorée.</strong> La régulation M-C a ajouté une section sur les confrontations, dont les lignes ont un format légèrement différent. Le pipeline la sautait sans le signaler. Je l'ai corrigé et ajouté des tests sur ce format.</p>
+<p><strong>Un mois manquant.</strong> Le calcul des mois disponibles s'arrêtait un mois trop tôt, et le mois le plus récent n'était pas récupéré. Corrigé, avec un test sur les dates de publication.</p>
+<p>Depuis, les tests s'exécutent avant chaque mise à jour mensuelle. S'ils échouent, les nouvelles données ne sont pas enregistrées.</p>
+
+<h2>Limites et suite</h2>
+<ul>
+  <li>Il n'y a qu'un mois de données pour l'instant. L'intérêt du projet viendra de l'historique, avec un nouveau relevé chaque mois.</li>
+  <li>Le niveau 1760 est une pondération, pas un groupe de joueurs séparé. Le ratio indique donc une tendance.</li>
+  <li>Prochaine étape : ajouter les résultats de tournois, pour comparer ce qui est joué en ligne à ce qui gagne en compétition.</li>
+</ul>
+
+<p class="small">Données : statistiques mensuelles publiques de Smogon University, agrégées, sans donnée personnelle. Sprites : dépôt public smogon/sprites. Pokémon © Nintendo, Creatures, GAME FREAK et The Pokémon Company. Projet de fan non commercial.</p>
+</main>
+
+<footer>
+  <p class="links">
+    <a href="./">Retour au portfolio</a>
+    <a href="mailto:karl.akpovi@gmail.com">karl.akpovi@gmail.com</a>
+    <a href="https://www.linkedin.com/in/karlakpovi">LinkedIn</a>
+  </p>
+</footer>
+</div>
+</body>
+</html>
