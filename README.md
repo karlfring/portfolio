@@ -9,7 +9,7 @@ Chaque projet est présenté en trois temps : contexte, réalisation, résultat.
 | Fichier | Rôle |
 |---|---|
 | `index.html` | page d'accueil : projets, expérience, compétences, formation, contact |
-| `vgc.html` | étude de cas de l'[observatoire du métagame VGC](https://github.com/karlfring/vgc-meta-observatory) |
+| `vgc.html` | étude de cas de [VGC Meta Overview](https://github.com/karlfring/vgc-meta-observatory) |
 | `procedure-graphique-analyse.html` | procédure pour créer un graphique d'analyse |
 | `kit-onboarding-powerbi.html` | kit de formation Power BI pour référents métier |
 | `style.css` | feuille de style commune |
