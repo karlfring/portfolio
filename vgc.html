@@ -4,316 +4,109 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Observatoire du métagame VGC · Karl Akpovi</title>
-<meta name="description" content="Étude de cas : un pipeline Python qui archive chaque mois les statistiques Smogon du VGC, un modèle en étoile et un tableau de bord pour suivre des parts de marché sur un marché qui change vite.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --paper:#F2F1ED;
-  --raise:#FFFFFF;
-  --ink:#1A1D21;
-  --ink-2:#5F656D;
-  --ink-3:#8A9099;
-  --rule:#D6D4CE;
-  --deep:#2E2BD1;
-  --deep-soft:#E5E4FC;
-  --display:'Bricolage Grotesque',sans-serif;
-  --body:'Newsreader',serif;
-  --util:'JetBrains Mono',monospace;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.62;font-optical-sizing:auto}
-a{color:var(--deep);text-decoration:none;text-underline-offset:3px}
-a:hover{text-decoration:underline}
-:focus-visible{outline:2px solid var(--deep);outline-offset:3px;border-radius:2px}
-.wrap{max-width:920px;margin:0 auto;padding:0 28px}
-
-/* hero : la thèse */
-header{padding:88px 0 64px}
-.name{font-family:var(--util);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);margin-bottom:38px}
-.thesis{font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,5.4vw,3.5rem);line-height:1.06;letter-spacing:-.022em;max-width:17ch}
-.thesis .from{color:var(--ink-3)}
-.thesis .arrow{display:inline-block;color:var(--deep)}
-.thesis .to{color:var(--ink)}
-.lede{margin-top:30px;max-width:56ch;font-size:1.14rem;color:var(--ink-2)}
-.lede b{color:var(--ink);font-weight:600}
-.hero-actions{display:contents}
-.tags{margin-top:30px;display:flex;flex-wrap:wrap;gap:8px}
-.tag{font-family:var(--util);font-size:.72rem;letter-spacing:.04em;padding:6px 11px;border:1px solid var(--rule);border-radius:100px;color:var(--ink-2);background:var(--raise)}
-.cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;font-family:var(--util);font-size:.82rem}
-.cta a.primary{background:var(--deep);color:#fff;padding:11px 20px;border-radius:6px}
-.cta a.primary:hover{background:#241FA8;text-decoration:none}
-.cta a.ghost{color:var(--ink-2);border-bottom:1px solid var(--rule);padding:11px 2px;min-height:44px;display:inline-flex;align-items:center}
-.cta a.ghost:hover{color:var(--deep);border-color:var(--deep);text-decoration:none}
-
-/* sections */
-section{padding:58px 0;border-top:1px solid var(--rule)}
-.sec-label{font-family:var(--util);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:26px}
-h2{font-family:var(--display);font-weight:600;font-size:1.62rem;letter-spacing:-.014em;margin-bottom:14px}
-.intro{color:var(--ink-2);max-width:62ch;margin-bottom:36px}
-
-/* chaîne de décision : la signature */
-.proj{background:var(--raise);border:1px solid var(--rule);border-radius:12px;padding:28px 30px;margin-bottom:20px}
-.proj-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px}
-.proj h3{font-family:var(--display);font-weight:600;font-size:1.2rem;letter-spacing:-.01em}
-.proj .stack{font-family:var(--util);font-size:.71rem;color:var(--ink-3);letter-spacing:.04em}
-.chain{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
-.link{padding:0 22px;border-left:1px solid var(--rule)}
-.link:first-child{padding-left:0;border-left:none}
-.link .k{font-family:var(--util);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:9px}
-.link p{font-size:.96rem;color:var(--ink-2);line-height:1.55}
-.link.out{background:linear-gradient(90deg,var(--deep-soft),rgba(229,228,252,0) 94%);margin:-10px -16px -10px 0;padding:10px 22px;border-radius:0 8px 8px 0}
-.link.out .k{color:var(--deep)}
-.link.out p{color:var(--ink)}
-@media(max-width:720px){
-  .chain{grid-template-columns:1fr}
-  .link{padding:16px 0 0;border-left:none;border-top:1px solid var(--rule);margin-top:16px}
-  .link:first-child{padding-top:0;border-top:none;margin-top:0}
-  .link.out{margin:16px 0 0;padding:16px;border-radius:8px;background:var(--deep-soft);border-top:none}
-}
-
-/* expérience */
-.job{display:grid;grid-template-columns:200px 1fr;gap:26px;padding:24px 0;border-top:1px solid var(--rule)}
-.job:first-of-type{border-top:none;padding-top:0}
-.job .when{font-family:var(--util);font-size:.74rem;color:var(--ink-3);letter-spacing:.03em;line-height:1.7}
-.job h3{font-family:var(--display);font-weight:600;font-size:1.1rem;margin-bottom:3px}
-.job .role{font-size:.94rem;color:var(--ink-2);font-style:italic;margin-bottom:12px}
-.job ul{list-style:none}
-.job li{position:relative;padding-left:19px;margin-bottom:8px;font-size:.98rem;color:var(--ink-2)}
-.job li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1px;background:var(--deep)}
-@media(max-width:720px){.job{grid-template-columns:1fr;gap:10px}}
-
-/* boîte à outils */
-.tools{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
-.tool{padding:16px 0;border-top:1px solid var(--rule)}
-.tool .k{font-family:var(--util);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--deep);display:block;margin-bottom:6px}
-.tool p{font-size:.96rem;color:var(--ink-2)}
-@media(max-width:720px){.tools{grid-template-columns:1fr}}
-
-/* formation */
-.edu{padding:16px 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:200px 1fr;gap:26px}
-.edu .when{font-family:var(--util);font-size:.74rem;color:var(--ink-3)}
-.edu b{font-weight:600}
-.edu span{display:block;color:var(--ink-2);font-size:.95rem}
-@media(max-width:720px){.edu{grid-template-columns:1fr;gap:6px}}
-
-/* ressources */
-.res{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.res a{display:block;background:var(--raise);border:1px solid var(--rule);border-radius:10px;padding:22px 24px;color:var(--ink)}
-.res a:hover{border-color:var(--deep);text-decoration:none}
-.res h3{font-family:var(--display);font-weight:600;font-size:1.04rem;margin-bottom:8px}
-.res p{font-size:.93rem;color:var(--ink-2)}
-.res .go{font-family:var(--util);font-size:.72rem;color:var(--deep);margin-top:12px;display:block}
-@media(max-width:720px){.res{grid-template-columns:1fr}}
-
-/* figures */
-figure{margin:24px 0 0}
-figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:8px;background:var(--raise)}
-figure figcaption{font-size:.9rem;color:var(--ink-2);margin-top:11px;line-height:1.5}
-figure figcaption b{color:var(--ink);font-weight:600}
-.shots{display:grid;gap:22px}
-
-/* contact */
-footer{padding:64px 0 78px;border-top:1px solid var(--rule)}
-footer h2{margin-bottom:14px}
-footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
-.reach{display:flex;flex-wrap:wrap;gap:4px 26px;font-family:var(--util);font-size:.86rem}
-.reach a{min-height:44px;display:inline-flex;align-items:center}
-.colophon{margin-top:52px;font-family:var(--util);font-size:.7rem;color:var(--ink-3);letter-spacing:.04em}
-/* mobile : densité */
-@media(max-width:720px){
-  .hero-actions{display:flex;flex-direction:column-reverse}
-  .hero-actions .cta{margin-top:22px}
-  .hero-actions .tags{margin-top:20px}
-  body{font-size:17px}
-  header{padding:52px 0 40px}
-  .name{margin-bottom:26px}
-  .lede{margin-top:22px;font-size:1.06rem}
-  .cta{gap:10px 18px}
-  section{padding:38px 0}
-  .sec-label{margin-bottom:18px}
-  h2{margin-bottom:10px}
-  .intro{margin-bottom:26px}
-  .proj{padding:22px 20px}
-  footer{padding:40px 0 52px}
-  .colophon{margin-top:34px}
-}
-/* étude de cas */
-.crumb{font-family:var(--util);font-size:.78rem;letter-spacing:.04em;margin-bottom:34px;display:inline-flex;min-height:44px;align-items:center}
-.case-badge{display:inline-block;font-family:var(--util);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--deep);background:var(--deep-soft);padding:5px 10px;border-radius:100px;margin-bottom:18px}
-.case-title{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,3.1rem);line-height:1.08;letter-spacing:-.022em;max-width:20ch}
-.facts{margin-top:36px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.fact{padding:18px 18px 18px 0}
-.fact+.fact{padding-left:18px;border-left:1px solid var(--rule)}
-.fact b{display:block;font-family:var(--display);font-weight:600;font-size:1.5rem;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
-.fact span{font-size:.88rem;color:var(--ink-2);line-height:1.4;display:block;margin-top:2px}
-@media(max-width:720px){.facts{grid-template-columns:1fr 1fr}.fact:nth-child(3){padding-left:0;border-left:none}.fact:nth-child(n+3){border-top:1px solid var(--rule)}}
-.map{width:100%;border-collapse:collapse;font-size:.96rem;margin-top:6px}
-.map th{font-family:var(--util);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);font-weight:400;text-align:left;padding:0 16px 10px 0;border-bottom:1px solid var(--rule)}
-.map td{padding:12px 16px 12px 0;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
-.map td:first-child{color:var(--ink);font-weight:500;width:42%}
-.steps{list-style:none;counter-reset:s;display:grid;gap:0}
-.steps li{counter-increment:s;display:grid;grid-template-columns:150px 1fr;gap:26px;padding:18px 0;border-top:1px solid var(--rule)}
-.steps li:first-child{border-top:none;padding-top:0}
-.steps .k{font-family:var(--util);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--deep);padding-top:4px}
-.steps .k::before{content:counter(s,decimal-leading-zero) "  ";color:var(--ink-3)}
-.steps p{font-size:.98rem;color:var(--ink-2)}
-.steps p b{color:var(--ink);font-weight:600}
-@media(max-width:720px){.steps li{grid-template-columns:1fr;gap:6px}}
-code{font-family:var(--util);font-size:.84em;background:var(--raise);border:1px solid var(--rule);border-radius:4px;padding:1px 5px;white-space:nowrap}
-.quads{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
-.quad{background:var(--raise);border:1px solid var(--rule);border-radius:10px;padding:18px 20px}
-.quad h3{font-family:var(--display);font-weight:600;font-size:1.02rem;margin-bottom:4px}
-.quad h3 small{font-family:var(--util);font-size:.72rem;font-weight:400;color:var(--ink-3);margin-left:6px}
-.quad p{font-size:.93rem;color:var(--ink-2)}
-.quad p.ex{margin-top:8px;font-size:.86rem;color:var(--ink-3)}
-@media(max-width:720px){.quads{grid-template-columns:1fr}}
-figure.narrow img{max-width:620px}
-.lesson{background:var(--raise);border:1px solid var(--rule);border-left:3px solid var(--deep);border-radius:0 10px 10px 0;padding:20px 24px;margin-top:16px}
-.lesson h3{font-family:var(--display);font-weight:600;font-size:1.04rem;margin-bottom:6px}
-.lesson p{font-size:.96rem;color:var(--ink-2)}
-.prose p{color:var(--ink-2);max-width:62ch;margin-bottom:14px}
-.prose p b{color:var(--ink);font-weight:600}
-.credit{margin-top:14px;font-size:.82rem;color:var(--ink-3);max-width:70ch}
-</style>
+<meta name="description" content="Étude de cas : un pipeline Python qui archive chaque mois les statistiques Smogon du jeu compétitif Pokémon, un modèle en étoile et un tableau de bord.">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="page">
 
-<header><div class="wrap">
-  <a class="crumb" href="./">← Retour au portfolio</a>
-  <p class="name">Karl Akpovi · Étude de cas</p>
-  <span class="case-badge">Projet personnel · mis à jour chaque mois</span>
-  <h1 class="case-title">Observatoire du métagame Pokémon VGC</h1>
-  <p class="lede">Suivre des parts de marché sur un marché qui change tous les mois. Les sites de référence affichent l'état <b>actuel</b> du jeu compétitif ; aucun ne garde d'historique exploitable. J'ai construit le pipeline qui le constitue, le modèle qui le structure et le tableau de bord qui le rend lisible.</p>
-  <div class="facts">
-    <div class="fact"><b>446 954</b><span>équipes analysées en septembre 2026</span></div>
-    <div class="fact"><b>341</b><span>Pokémon joués au moins une fois</span></div>
-    <div class="fact"><b>5</b><span>tables de faits dans un modèle en étoile</span></div>
-    <div class="fact"><b>15</b><span>tests automatisés, exécutés à chaque ingestion</span></div>
-  </div>
-  <div class="cta">
-    <a class="primary" href="https://github.com/karlfring/vgc-meta-observatory">Voir le code sur GitHub</a>
-    <a class="ghost" href="#resultats">Aller aux résultats</a>
-  </div>
-</div></header>
+<a class="back" href="./">Retour au portfolio</a>
+
+<header>
+  <h1>Observatoire du métagame Pokémon VGC</h1>
+  <p class="role">Projet personnel, mis à jour chaque mois depuis septembre 2026</p>
+  <p class="meta">Python, pandas, GitHub Actions, modèle en étoile, Power BI</p>
+  <p>Smogon publie chaque mois les statistiques d'usage du jeu compétitif Pokémon Champions. Les sites spécialisés n'affichent que le mois en cours. J'ai construit un pipeline qui archive ces données chaque mois, pour pouvoir suivre leur évolution et les analyser.</p>
+  <p class="links"><a href="https://github.com/karlfring/vgc-meta-observatory">Code source et documentation</a></p>
+</header>
 
 <main>
-<section><div class="wrap">
-  <p class="sec-label">En une ligne</p>
-  <h2>La question, ce que j'ai construit, la décision</h2>
-  <div class="proj" style="margin-top:22px">
-    <div class="chain">
-      <div class="link"><span class="k">La question</span><p>Sur un marché où l'offre se réorganise chaque mois, qu'est-ce qui a changé, et qui adopte les nouveautés en premier ?</p></div>
-      <div class="link"><span class="k">Ce que j'ai construit</span><p>Un pipeline Python qui archive les statistiques mensuelles, un modèle en étoile versionné et un tableau de bord interactif.</p></div>
-      <div class="link out"><span class="k">La décision rendue possible</span><p>Distinguer ce qui est populaire de ce qui est choisi par les meilleurs, et repérer les signaux faibles avant le marché de masse.</p></div>
-    </div>
-  </div>
-</div></section>
+<h2>Chiffres clés de septembre 2026</h2>
+<table>
+  <tbody>
+    <tr><td>Équipes analysées</td><td class="num">446 954</td></tr>
+    <tr><td>Batailles</td><td class="num">223 477</td></tr>
+    <tr><td>Pokémon joués au moins une fois</td><td class="num">341</td></tr>
+    <tr><td>Tests automatisés exécutés à chaque mise à jour</td><td class="num">15</td></tr>
+  </tbody>
+</table>
 
-<section><div class="wrap">
-  <p class="sec-label">Pourquoi ce terrain</p>
-  <h2>Un jeu, mais un vrai problème de marché</h2>
-  <p class="intro">J'ai choisi un domaine que je connais de l'intérieur, parce que c'est ce qui permet de juger si un chiffre a du sens. Transposé hors du jeu, chaque indicateur a un équivalent direct en entreprise.</p>
-  <table class="map">
-    <thead><tr><th>Dans le jeu</th><th>En entreprise</th></tr></thead>
-    <tbody>
-      <tr><td>Usage d'un Pokémon</td><td>Part de marché d'un produit</td></tr>
-      <tr><td>Adoption par les meilleurs joueurs</td><td>Adoption par le segment client le plus exigeant</td></tr>
-      <tr><td>Coéquipiers fréquents</td><td>Produits achetés ensemble, affinités de panier</td></tr>
-      <tr><td>Adversaires qui le mettent en difficulté</td><td>Concurrents directs</td></tr>
-      <tr><td>Un instantané par mois</td><td>Suivi de tendance et détection de ruptures</td></tr>
-      <tr><td>Staples, pépites, pièges, niches</td><td>Matrice de portefeuille, à la manière d'une matrice BCG</td></tr>
-    </tbody>
-  </table>
-</div></section>
+<h2>Pourquoi ce sujet</h2>
+<p>Je joue moi-même en compétition, ce qui m'aide à vérifier que les résultats ont du sens. Surtout, le problème se transpose directement à un marché :</p>
+<table>
+  <thead><tr><th>Dans le jeu</th><th>Dans une entreprise</th></tr></thead>
+  <tbody>
+    <tr><td>Usage d'un Pokémon</td><td>Part de marché d'un produit</td></tr>
+    <tr><td>Adoption par les meilleurs joueurs</td><td>Adoption par les clients les plus exigeants</td></tr>
+    <tr><td>Coéquipiers fréquents</td><td>Produits achetés ensemble</td></tr>
+    <tr><td>Adversaires qui le mettent en difficulté</td><td>Concurrents directs</td></tr>
+    <tr><td>Un relevé par mois</td><td>Suivi de tendance</td></tr>
+  </tbody>
+</table>
 
-<section><div class="wrap">
-  <p class="sec-label">Le pipeline</p>
-  <h2>De fichiers texte publics à un historique fiable</h2>
-  <p class="intro">Smogon publie chaque mois, le 1er du mois suivant, les statistiques agrégées du ladder Pokémon Showdown, sous forme de fichiers texte. Il n'existe pas d'API.</p>
-  <ol class="steps">
-    <li><span class="k">Collecter</span><p>Téléchargement des fichiers d'usage et de movesets pour quatre paliers de classement, de 0 (tous les joueurs à égalité) à 1760 (pondération vers l'élite). <b>Archivage idempotent</b> : un mois déjà récupéré n'est jamais retéléchargé. Deux secondes entre deux requêtes et un User-Agent identifiant, par respect pour la source.</p></li>
-    <li><span class="k">Parser</span><p>Des parsers en expressions régulières transforment les tableaux texte en lignes : usage, objets, capacités, talents, spreads, coéquipiers et matchups. Chaque format est couvert par des tests sur fichiers témoins.</p></li>
-    <li><span class="k">Modéliser</span><p>Un <b>modèle en étoile</b> écrit en CSV : dimensions Pokémon, date, régulation et palier ; faits d'usage, de moveset en format long, de coéquipiers, de matchups. Un index de snapshot séquentiel remplace la time intelligence DAX, peu fiable sur des données mensuelles à trous.</p></li>
-    <li><span class="k">Tracer</span><p>Une table <code>fact_snapshot</code> garde pour chaque fichier ingéré son empreinte SHA-256, le nombre de batailles et l'horodatage. On peut ainsi auditer un chiffre et détecter une republication silencieuse de la source.</p></li>
-    <li><span class="k">Automatiser</span><p>Un workflow GitHub Actions s'exécute le 2 de chaque mois : il lance les tests, ingère le nouveau mois et commite les données. Chaque évolution du métagame est traçable à un commit.</p></li>
-    <li><span class="k">Restituer</span><p>Un tableau de bord en trois onglets (vue d'ensemble, fiche par Pokémon, classement complet) et un modèle Power BI documenté, avec des mesures DAX de concentration (indice HHI), d'écart entre l'élite et le reste du ladder et de lift d'association.</p></li>
-  </ol>
-</div></section>
+<h2>Fonctionnement</h2>
+<ol>
+  <li><strong>Collecte.</strong> Le pipeline télécharge les fichiers d'usage et de movesets pour quatre niveaux de classement, de 0 (tous les joueurs comptent autant) à 1760 (les mieux classés comptent davantage). Un mois déjà récupéré n'est jamais retéléchargé.</li>
+  <li><strong>Transformation.</strong> Des expressions régulières convertissent les tableaux texte en lignes : usage, objets, capacités, talents, coéquipiers et confrontations.</li>
+  <li><strong>Modèle de données.</strong> Les données sont rangées en modèle en étoile : quatre dimensions (Pokémon, date, régulation, niveau de classement) et cinq tables de faits.</li>
+  <li><strong>Traçabilité.</strong> Chaque fichier ingéré est enregistré avec son empreinte SHA-256 et son nombre de batailles, ce qui permet de vérifier n'importe quel chiffre.</li>
+  <li><strong>Automatisation.</strong> GitHub Actions lance le pipeline le 2 de chaque mois : tests, ingestion, puis enregistrement des nouvelles données dans le dépôt.</li>
+  <li><strong>Restitution.</strong> Un tableau de bord en trois onglets (vue d'ensemble, fiche par Pokémon, classement) et un modèle Power BI avec ses mesures DAX.</li>
+</ol>
 
-<section id="resultats"><div class="wrap">
-  <p class="sec-label">Ce que montrent les données</p>
-  <h2>Septembre 2026, premier mois de la régulation M-C</h2>
-  <div class="prose">
-    <p><b>Rillaboom figure dans plus d'une équipe sur deux</b> (54,7 %), et le top 10 occupe 45,3 % des emplacements. Le métagame est ouvert, avec 32 Pokémon au-dessus de 5 % d'usage, mais il est tiré par quelques piliers.</p>
-  </div>
-  <figure>
-    <img src="img/vgc-apercu.webp" width="1100" height="397" loading="lazy" decoding="async" alt="Haut du tableau de bord : phrase de synthèse, podium des six Pokémon les plus joués avec leur usage, et quatre indicateurs clés.">
-    <figcaption><b>La vue d'ensemble.</b> La phrase d'accroche donne la conclusion avant les chiffres ; ses valeurs viennent des données et se mettent à jour avec chaque nouveau mois.</figcaption>
-  </figure>
+<h2>Résultats de septembre 2026</h2>
+<p>Rillaboom est présent dans plus d'une équipe sur deux (54,7 %). Les dix Pokémon les plus joués occupent 45,3 % des emplacements, et 32 Pokémon dépassent 5 % d'usage.</p>
+<figure>
+  <img src="img/vgc-apercu.webp" width="1100" height="397" loading="lazy" decoding="async" alt="Haut du tableau de bord : phrase de synthèse, podium des six Pokémon les plus joués avec leur usage, et quatre indicateurs clés.">
+  <figcaption>Vue d'ensemble du tableau de bord.</figcaption>
+</figure>
 
-  <h2 style="margin-top:48px">Populaire n'est pas synonyme de performant</h2>
-  <div class="prose">
-    <p>L'usage seul ne dit pas si un Pokémon est bon : il dit qu'il est choisi. J'ai donc croisé la popularité avec son adoption par l'élite. Smogon publie le même mois à plusieurs niveaux de pondération : en divisant l'usage chez les joueurs les mieux classés (palier 1760) par l'usage sur tout le ladder (palier 0), on voit qui l'élite joue plus, ou moins, que la moyenne. Les seuils sont explicites : <b>10 % d'usage</b> pour la popularité, et un <b>ratio de 1</b> pour l'adoption par l'élite.</p>
-    <p>Exemple : Charizard-Mega-Y passe de 11,9 % d'usage sur le ladder à 21,1 % chez l'élite, un ratio de 1,78. Golisopod-Mega fait le chemin inverse, de 12,7 % à 6,9 %.</p>
-  </div>
-  <figure class="narrow">
-    <img src="img/vgc-quadrants.webp" width="1100" height="1122" loading="lazy" decoding="async" alt="Nuage de points des 63 Pokémon au-dessus de 1 % d'usage : usage en abscisse, ratio entre l'usage chez l'élite et sur tout le ladder en ordonnée, deux lignes de seuil découpant quatre quadrants.">
-    <figcaption><b>Comment se lit ce graphique.</b> Chaque point est un Pokémon. Plus il est à droite, plus il est joué ; plus il est haut, plus l'élite le joue par rapport à l'ensemble du ladder. Les échelles logarithmiques évitent que les Pokémon à 2 ou 3 % s'écrasent contre l'axe, et placent ×2 et ×0,5 à égale distance de la ligne de référence. Les sprites signalent les Pokémon populaires.</figcaption>
-  </figure>
-  <div class="quads">
-    <div class="quad"><h3>Staples <small>14</small></h3><p>Populaires et plébiscités par l'élite : le socle du format.</p><p class="ex">Rillaboom, Sneasler, Incineroar, Kingambit, Charizard-Mega-Y</p></div>
-    <div class="quad"><h3>Pépites <small>15</small></h3><p>Peu joués, mais plébiscités par l'élite. C'est là qu'il faut regarder pour anticiper le mois suivant.</p><p class="ex">Venusaur, Kommo-o, Grimmsnarl, Gengar-Mega, Garchomp</p></div>
-    <div class="quad"><h3>Pièges <small>5</small></h3><p>Populaires, mais délaissés par l'élite. Leur popularité ne garantit pas leur efficacité au plus haut niveau.</p><p class="ex">Salamence-Mega, Indeedee-F, Farigiraf, Milotic, Golisopod-Mega</p></div>
-    <div class="quad"><h3>Niches <small>29</small></h3><p>Ni populaires ni plébiscités par l'élite. À surveiller seulement s'ils changent de quadrant d'un mois sur l'autre.</p><p class="ex">Près de la moitié des Pokémon au-dessus de 1 % d'usage</p></div>
-  </div>
+<h3>Popularité et adoption par les meilleurs joueurs</h3>
+<p>L'usage indique qu'un Pokémon est choisi, pas qu'il est efficace. Pour aller plus loin, je compare son usage chez les joueurs les mieux classés (niveau 1760) à son usage sur l'ensemble des joueurs (niveau 0). Un ratio supérieur à 1 signifie que les meilleurs joueurs le prennent plus souvent que la moyenne.</p>
+<p>Par exemple, Charizard-Mega-Y passe de 11,9 % d'usage sur l'ensemble des joueurs à 21,1 % chez les mieux classés, soit un ratio de 1,78. Golisopod-Mega fait l'inverse : de 12,7 % à 6,9 %.</p>
+<p>En croisant ce ratio avec la popularité (seuil de 10 % d'usage), on obtient quatre groupes parmi les 63 Pokémon qui dépassent 1 % d'usage :</p>
+<table>
+  <thead><tr><th>Groupe</th><th>Définition</th><th class="num">Nombre</th><th>Exemples</th></tr></thead>
+  <tbody>
+    <tr><td>Staples</td><td>populaires, et plus joués par les meilleurs</td><td class="num">14</td><td>Rillaboom, Incineroar, Kingambit</td></tr>
+    <tr><td>Pépites</td><td>peu joués, mais plus joués par les meilleurs</td><td class="num">15</td><td>Venusaur, Kommo-o, Garchomp</td></tr>
+    <tr><td>Pièges</td><td>populaires, mais moins joués par les meilleurs</td><td class="num">5</td><td>Salamence-Mega, Indeedee-F, Farigiraf</td></tr>
+    <tr><td>Niches</td><td>ni l'un ni l'autre</td><td class="num">29</td><td></td></tr>
+  </tbody>
+</table>
+<p>Les pépites sont les plus intéressantes à suivre : ce sont elles qui pourraient gagner en popularité les mois suivants.</p>
+<figure class="narrow">
+  <img src="img/vgc-quadrants.webp" width="1100" height="1122" loading="lazy" decoding="async" alt="Nuage de points des 63 Pokémon au-dessus de 1 % d'usage : usage en abscisse, ratio entre l'usage chez les mieux classés et sur l'ensemble des joueurs en ordonnée, deux lignes de seuil découpant quatre groupes.">
+  <figcaption>Chaque point est un Pokémon. Plus il est à droite, plus il est joué. Plus il est haut, plus les meilleurs joueurs le choisissent par rapport à la moyenne.</figcaption>
+</figure>
+<figure>
+  <img src="img/vgc-fiche.webp" width="1100" height="438" loading="lazy" decoding="async" alt="Fiche de Rillaboom : objets, capacités, talents et coéquipiers les plus fréquents, chacun avec son taux d'adoption.">
+  <figcaption>Fiche d'un Pokémon : objets, capacités, talents et coéquipiers les plus fréquents.</figcaption>
+</figure>
 
-  <figure style="margin-top:40px">
-    <img src="img/vgc-fiche.webp" width="1100" height="438" loading="lazy" decoding="async" alt="Fiche de Rillaboom : objets, capacités, talents et coéquipiers les plus fréquents, chacun avec son taux d'adoption.">
-    <figcaption><b>La fiche par Pokémon.</b> Un clic sur n'importe quel point, barre ou ligne ouvre la fiche : comment il est joué, avec qui, et quels adversaires le mettent en difficulté. C'est l'équivalent d'une fiche produit avec ses ventes croisées.</figcaption>
-  </figure>
-</div></section>
+<h2>Contrôle qualité</h2>
+<p>J'ai trouvé deux erreurs en comparant les résultats du pipeline aux fichiers sources. Aucune ne provoquait de message d'erreur.</p>
+<p><strong>Une section ignorée.</strong> La régulation M-C a ajouté une section sur les confrontations, dont les lignes ont un format légèrement différent. Le pipeline la sautait sans le signaler. Je l'ai corrigé et ajouté des tests sur ce format.</p>
+<p><strong>Un mois manquant.</strong> Le calcul des mois disponibles s'arrêtait un mois trop tôt, et le mois le plus récent n'était pas récupéré. Corrigé, avec un test sur les dates de publication.</p>
+<p>Depuis, les tests s'exécutent avant chaque mise à jour mensuelle. S'ils échouent, les nouvelles données ne sont pas enregistrées.</p>
 
-<section><div class="wrap">
-  <p class="sec-label">Ce que j'ai appris</p>
-  <h2>Deux bugs qui ne faisaient rien planter</h2>
-  <p class="intro">Les erreurs les plus dangereuses d'un pipeline sont celles qui produisent un résultat plausible. J'en ai trouvé deux en confrontant les sorties aux fichiers sources, et chacune a désormais son test.</p>
-  <div class="lesson">
-    <h3>Une section entière ignorée en silence</h3>
-    <p>Le format de la régulation M-C a introduit un bloc de matchups dont les lignes ne se terminent pas comme les autres. Le parser les sautait sans erreur : les tables se remplissaient, simplement sans cette information. Je l'ai repéré en confrontant la sortie au fichier brut, puis corrigé et couvert par des tests.</p>
-  </div>
-  <div class="lesson">
-    <h3>Le dernier mois publié, exclu</h3>
-    <p>Le calcul des mois disponibles s'arrêtait un mois trop tôt : le pipeline tournait, mais ignorait le mois le plus récent, celui qui intéresse le plus. Une borne mal fermée, corrigée et verrouillée par un test sur les dates de publication.</p>
-  </div>
-</div></section>
+<h2>Limites et suite</h2>
+<ul>
+  <li>Il n'y a qu'un mois de données pour l'instant. L'intérêt du projet viendra de l'historique, avec un nouveau relevé chaque mois.</li>
+  <li>Le niveau 1760 est une pondération, pas un groupe de joueurs séparé. Le ratio indique donc une tendance.</li>
+  <li>Prochaine étape : ajouter les résultats de tournois, pour comparer ce qui est joué en ligne à ce qui gagne en compétition.</li>
+</ul>
 
-<section><div class="wrap">
-  <p class="sec-label">Limites et suite</p>
-  <h2>Ce que ce projet ne dit pas encore</h2>
-  <div class="prose">
-    <p><b>Un seul mois pour l'instant.</b> La valeur de l'observatoire est dans l'historique : chaque nouveau mois ajoute une mesure d'évolution. Les données d'octobre arrivent le 1er novembre.</p>
-    <p><b>L'élite est une pondération, pas un échantillon.</b> Le palier 1760 donne plus de poids aux mieux classés sans exclure les autres : le ratio mesure une tendance. Et plusieurs Pokémon sont si proches du seuil de 1 que seule leur trajectoire d'un mois sur l'autre tranchera.</p>
-    <p><b>Le ladder n'est pas le tournoi.</b> L'étape suivante est d'ajouter les résultats de tournois pour mesurer un taux de conversion en phase finale, l'équivalent d'un taux de transformation.</p>
-  </div>
-  <p class="credit">Données : statistiques publiques mensuelles de Smogon University, agrégées, sans donnée personnelle de joueur. Sprites : dépôt public smogon/sprites. Pokémon © Nintendo, Creatures, GAME FREAK et The Pokémon Company ; projet de fan non commercial.</p>
-</div></section>
+<p class="small">Données : statistiques mensuelles publiques de Smogon University, agrégées, sans donnée personnelle. Sprites : dépôt public smogon/sprites. Pokémon © Nintendo, Creatures, GAME FREAK et The Pokémon Company. Projet de fan non commercial.</p>
 </main>
 
-<footer><div class="wrap">
-  <h2>Parlons-en</h2>
-  <p class="pitch">Ce projet montre la façon dont je travaille sur n'importe quel sujet : partir d'une question, fiabiliser la donnée, puis rendre la réponse lisible pour celui qui décide.</p>
-  <div class="reach">
-    <a href="mailto:karl.akpovi@gmail.com">karl.akpovi@gmail.com</a>
-    <a href="https://www.linkedin.com/in/karlakpovi">linkedin.com/in/karlakpovi</a>
-    <a href="https://github.com/karlfring/vgc-meta-observatory">Code du projet</a>
+<footer>
+  <p class="links">
     <a href="./">Retour au portfolio</a>
-  </div>
-  <p class="colophon">Karl Akpovi · Data Analyst, Decision Analytics et BI · 2026</p>
-</div></footer>
-
+    <a href="mailto:karl.akpovi@gmail.com">karl.akpovi@gmail.com</a>
+    <a href="https://www.linkedin.com/in/karlakpovi">LinkedIn</a>
+  </p>
+</footer>
+</div>
 </body>
 </html>
