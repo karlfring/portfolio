@@ -189,8 +189,8 @@ figure.narrow img{max-width:620px}
   <h1 class="case-title">Observatoire du métagame Pokémon VGC</h1>
   <p class="lede">Suivre des parts de marché sur un marché qui change tous les mois. Les sites de référence affichent l'état <b>actuel</b> du jeu compétitif ; aucun ne garde d'historique exploitable. J'ai construit le pipeline qui le constitue, le modèle qui le structure et le tableau de bord qui le rend lisible.</p>
   <div class="facts">
-    <div class="fact"><b>515 299</b><span>équipes analysées en septembre 2026</span></div>
-    <div class="fact"><b>259</b><span>Pokémon joués au moins une fois</span></div>
+    <div class="fact"><b>446 954</b><span>équipes analysées en septembre 2026</span></div>
+    <div class="fact"><b>341</b><span>Pokémon joués au moins une fois</span></div>
     <div class="fact"><b>5</b><span>tables de faits dans un modèle en étoile</span></div>
     <div class="fact"><b>15</b><span>tests automatisés, exécutés à chaque ingestion</span></div>
   </div>
@@ -221,7 +221,7 @@ figure.narrow img{max-width:620px}
     <thead><tr><th>Dans le jeu</th><th>En entreprise</th></tr></thead>
     <tbody>
       <tr><td>Usage d'un Pokémon</td><td>Part de marché d'un produit</td></tr>
-      <tr><td>Classement moyen des joueurs qui le choisissent</td><td>Valeur du segment client qui l'achète</td></tr>
+      <tr><td>Adoption par les meilleurs joueurs</td><td>Adoption par le segment client le plus exigeant</td></tr>
       <tr><td>Coéquipiers fréquents</td><td>Produits achetés ensemble, affinités de panier</td></tr>
       <tr><td>Adversaires qui le mettent en difficulté</td><td>Concurrents directs</td></tr>
       <tr><td>Un instantané par mois</td><td>Suivi de tendance et détection de ruptures</td></tr>
@@ -235,7 +235,7 @@ figure.narrow img{max-width:620px}
   <h2>De fichiers texte publics à un historique fiable</h2>
   <p class="intro">Smogon publie chaque mois, le 1er du mois suivant, les statistiques agrégées du ladder Pokémon Showdown, sous forme de fichiers texte. Il n'existe pas d'API.</p>
   <ol class="steps">
-    <li><span class="k">Collecter</span><p>Téléchargement des fichiers d'usage et de movesets pour quatre paliers de classement. <b>Archivage idempotent</b> : un mois déjà récupéré n'est jamais retéléchargé. Deux secondes entre deux requêtes et un User-Agent identifiant, par respect pour la source.</p></li>
+    <li><span class="k">Collecter</span><p>Téléchargement des fichiers d'usage et de movesets pour quatre paliers de classement, de 0 (tous les joueurs à égalité) à 1760 (pondération vers l'élite). <b>Archivage idempotent</b> : un mois déjà récupéré n'est jamais retéléchargé. Deux secondes entre deux requêtes et un User-Agent identifiant, par respect pour la source.</p></li>
     <li><span class="k">Parser</span><p>Des parsers en expressions régulières transforment les tableaux texte en lignes : usage, objets, capacités, talents, spreads, coéquipiers et matchups. Chaque format est couvert par des tests sur fichiers témoins.</p></li>
     <li><span class="k">Modéliser</span><p>Un <b>modèle en étoile</b> écrit en CSV : dimensions Pokémon, date, régulation et palier ; faits d'usage, de moveset en format long, de coéquipiers, de matchups. Un index de snapshot séquentiel remplace la time intelligence DAX, peu fiable sur des données mensuelles à trous.</p></li>
     <li><span class="k">Tracer</span><p>Une table <code>fact_snapshot</code> garde pour chaque fichier ingéré son empreinte SHA-256, le nombre de batailles et l'horodatage. On peut ainsi auditer un chiffre et détecter une republication silencieuse de la source.</p></li>
@@ -248,7 +248,7 @@ figure.narrow img{max-width:620px}
   <p class="sec-label">Ce que montrent les données</p>
   <h2>Septembre 2026, premier mois de la régulation M-C</h2>
   <div class="prose">
-    <p><b>Rillaboom figure dans une équipe sur deux</b> (50,9 %), et le top 10 occupe 45,3 % des emplacements. Le métagame est ouvert, avec 32 Pokémon au-dessus de 5 % d'usage, mais il est tiré par quelques piliers.</p>
+    <p><b>Rillaboom figure dans plus d'une équipe sur deux</b> (54,7 %), et le top 10 occupe 45,3 % des emplacements. Le métagame est ouvert, avec 32 Pokémon au-dessus de 5 % d'usage, mais il est tiré par quelques piliers.</p>
   </div>
   <figure>
     <img src="img/vgc-apercu.webp" width="1100" height="397" loading="lazy" decoding="async" alt="Haut du tableau de bord : phrase de synthèse, podium des six Pokémon les plus joués avec leur usage, et quatre indicateurs clés.">
@@ -257,17 +257,18 @@ figure.narrow img{max-width:620px}
 
   <h2 style="margin-top:48px">Populaire n'est pas synonyme de performant</h2>
   <div class="prose">
-    <p>L'usage seul ne dit pas si un Pokémon est bon : il dit qu'il est choisi. J'ai donc croisé la popularité avec le classement moyen des joueurs qui le choisissent, pour obtenir quatre profils. Les seuils sont explicites : <b>10 % d'usage</b> pour la popularité, et le <b>niveau moyen du format</b>, pondéré par les apparitions, pour le niveau.</p>
+    <p>L'usage seul ne dit pas si un Pokémon est bon : il dit qu'il est choisi. J'ai donc croisé la popularité avec son adoption par l'élite. Smogon publie le même mois à plusieurs niveaux de pondération : en divisant l'usage chez les joueurs les mieux classés (palier 1760) par l'usage sur tout le ladder (palier 0), on voit qui l'élite joue plus, ou moins, que la moyenne. Les seuils sont explicites : <b>10 % d'usage</b> pour la popularité, et un <b>ratio de 1</b> pour l'adoption par l'élite.</p>
+    <p>Exemple : Charizard-Mega-Y passe de 11,9 % d'usage sur le ladder à 21,1 % chez l'élite, un ratio de 1,78. Golisopod-Mega fait le chemin inverse, de 12,7 % à 6,9 %.</p>
   </div>
   <figure class="narrow">
-    <img src="img/vgc-quadrants.webp" width="1100" height="1096" loading="lazy" decoding="async" alt="Nuage de points des 69 Pokémon au-dessus de 1 % d'usage : usage en abscisse sur échelle logarithmique, classement moyen des joueurs en ordonnée, deux lignes de seuil découpant quatre quadrants.">
-    <figcaption><b>Comment se lit ce graphique.</b> Chaque point est un Pokémon. Plus il est à droite, plus il est joué ; plus il est haut, plus les joueurs qui le choisissent sont bien classés. L'échelle logarithmique évite que les Pokémon à 2 ou 3 % s'écrasent contre l'axe. Les sprites signalent les Pokémon populaires.</figcaption>
+    <img src="img/vgc-quadrants.webp" width="1100" height="1122" loading="lazy" decoding="async" alt="Nuage de points des 63 Pokémon au-dessus de 1 % d'usage : usage en abscisse, ratio entre l'usage chez l'élite et sur tout le ladder en ordonnée, deux lignes de seuil découpant quatre quadrants.">
+    <figcaption><b>Comment se lit ce graphique.</b> Chaque point est un Pokémon. Plus il est à droite, plus il est joué ; plus il est haut, plus l'élite le joue par rapport à l'ensemble du ladder. Les échelles logarithmiques évitent que les Pokémon à 2 ou 3 % s'écrasent contre l'axe, et placent ×2 et ×0,5 à égale distance de la ligne de référence. Les sprites signalent les Pokémon populaires.</figcaption>
   </figure>
   <div class="quads">
-    <div class="quad"><h3>Staples <small>13</small></h3><p>Populaires et choisis par les mieux classés : le socle du format.</p><p class="ex">Rillaboom, Sneasler, Incineroar, Gholdengo, Raichu-Mega-Y</p></div>
-    <div class="quad"><h3>Pépites <small>20</small></h3><p>Peu joués, mais par les mieux classés. C'est là qu'il faut regarder pour anticiper le mois suivant.</p><p class="ex">Kommo-o, Venusaur, Gengar-Mega, Froslass-Mega</p></div>
-    <div class="quad"><h3>Pièges <small>5</small></h3><p>Populaires, mais choisis en moyenne par des joueurs moins bien classés. Leur popularité ne garantit pas leur efficacité au plus haut niveau.</p><p class="ex">Indeedee-F, Basculegion, Golisopod-Mega, Milotic, Pelipper</p></div>
-    <div class="quad"><h3>Niches <small>31</small></h3><p>Ni populaires ni plébiscités par l'élite. À surveiller seulement s'ils changent de quadrant d'un mois sur l'autre.</p><p class="ex">Près de la moitié des Pokémon au-dessus de 1 % d'usage</p></div>
+    <div class="quad"><h3>Staples <small>14</small></h3><p>Populaires et plébiscités par l'élite : le socle du format.</p><p class="ex">Rillaboom, Sneasler, Incineroar, Kingambit, Charizard-Mega-Y</p></div>
+    <div class="quad"><h3>Pépites <small>15</small></h3><p>Peu joués, mais plébiscités par l'élite. C'est là qu'il faut regarder pour anticiper le mois suivant.</p><p class="ex">Venusaur, Kommo-o, Grimmsnarl, Gengar-Mega, Garchomp</p></div>
+    <div class="quad"><h3>Pièges <small>5</small></h3><p>Populaires, mais délaissés par l'élite. Leur popularité ne garantit pas leur efficacité au plus haut niveau.</p><p class="ex">Salamence-Mega, Indeedee-F, Farigiraf, Milotic, Golisopod-Mega</p></div>
+    <div class="quad"><h3>Niches <small>29</small></h3><p>Ni populaires ni plébiscités par l'élite. À surveiller seulement s'ils changent de quadrant d'un mois sur l'autre.</p><p class="ex">Près de la moitié des Pokémon au-dessus de 1 % d'usage</p></div>
   </div>
 
   <figure style="margin-top:40px">
@@ -295,7 +296,7 @@ figure.narrow img{max-width:620px}
   <h2>Ce que ce projet ne dit pas encore</h2>
   <div class="prose">
     <p><b>Un seul mois pour l'instant.</b> La valeur de l'observatoire est dans l'historique : chaque nouveau mois ajoute une mesure d'évolution. Les données d'octobre arrivent le 1er novembre.</p>
-    <p><b>Le niveau est approché, pas mesuré.</b> Le classement moyen des joueurs est un indicateur indirect. Ingérer les paliers 0 et 1760 permettra de mesurer directement ce que l'élite adopte avant le reste du ladder.</p>
+    <p><b>L'élite est une pondération, pas un échantillon.</b> Le palier 1760 donne plus de poids aux mieux classés sans exclure les autres : le ratio mesure une tendance. Et plusieurs Pokémon sont si proches du seuil de 1 que seule leur trajectoire d'un mois sur l'autre tranchera.</p>
     <p><b>Le ladder n'est pas le tournoi.</b> L'étape suivante est d'ajouter les résultats de tournois pour mesurer un taux de conversion en phase finale, l'équivalent d'un taux de transformation.</p>
   </div>
   <p class="credit">Données : statistiques publiques mensuelles de Smogon University, agrégées, sans donnée personnelle de joueur. Sprites : dépôt public smogon/sprites. Pokémon © Nintendo, Creatures, GAME FREAK et The Pokémon Company ; projet de fan non commercial.</p>
