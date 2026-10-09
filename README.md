@@ -21,7 +21,6 @@ décision que le résultat rend possible.
 HTML et CSS statiques, sans framework ni étape de build, publiés par GitHub
 Pages depuis la branche `main`. Conçu pour le mobile et l'accessibilité :
 contrastes vérifiés, cibles tactiles de 44 px, respect de
-`prefers-reduced-motion`.
 
 ## Contact
 

@@ -3,356 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Karl Akpovi · Data Analyst, Decision Analytics</title>
-<meta name="description" content="Data Analyst spécialisé en BI décisionnelle, disponible en Île-de-France ou en télétravail. Je transforme des questions métiers floues en décisions qu'on peut défendre. Power BI, SQL, dbt, Snowflake, Python.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --paper:#F2F1ED;
-  --raise:#FFFFFF;
-  --ink:#1A1D21;
-  --ink-2:#5F656D;
-  --ink-3:#8A9099;
-  --rule:#D6D4CE;
-  --deep:#2E2BD1;
-  --deep-soft:#E5E4FC;
-  --display:'Bricolage Grotesque',sans-serif;
-  --body:'Newsreader',serif;
-  --util:'JetBrains Mono',monospace;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.62;font-optical-sizing:auto}
-a{color:var(--deep);text-decoration:none;text-underline-offset:3px}
-a:hover{text-decoration:underline}
-:focus-visible{outline:2px solid var(--deep);outline-offset:3px;border-radius:2px}
-.wrap{max-width:920px;margin:0 auto;padding:0 28px}
-
-/* hero : la thèse */
-header{padding:88px 0 64px}
-.name{font-family:var(--util);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);margin-bottom:38px}
-.thesis{font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,5.4vw,3.5rem);line-height:1.06;letter-spacing:-.022em;max-width:17ch}
-.thesis .from{color:var(--ink-3)}
-.thesis .arrow{display:inline-block;color:var(--deep)}
-.thesis .to{color:var(--ink)}
-.lede{margin-top:30px;max-width:56ch;font-size:1.14rem;color:var(--ink-2)}
-.lede b{color:var(--ink);font-weight:600}
-.hero-actions{display:contents}
-.tags{margin-top:30px;display:flex;flex-wrap:wrap;gap:8px}
-.tag{font-family:var(--util);font-size:.72rem;letter-spacing:.04em;padding:6px 11px;border:1px solid var(--rule);border-radius:100px;color:var(--ink-2);background:var(--raise)}
-.cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;font-family:var(--util);font-size:.82rem}
-.cta a.primary{background:var(--deep);color:#fff;padding:11px 20px;border-radius:6px}
-.cta a.primary:hover{background:#241FA8;text-decoration:none}
-.cta a.ghost{color:var(--ink-2);border-bottom:1px solid var(--rule);padding:11px 2px;min-height:44px;display:inline-flex;align-items:center}
-.cta a.ghost:hover{color:var(--deep);border-color:var(--deep);text-decoration:none}
-
-/* sections */
-section{padding:58px 0;border-top:1px solid var(--rule)}
-.sec-label{font-family:var(--util);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:26px}
-h2{font-family:var(--display);font-weight:600;font-size:1.62rem;letter-spacing:-.014em;margin-bottom:14px}
-.intro{color:var(--ink-2);max-width:62ch;margin-bottom:36px}
-
-/* chaîne de décision : la signature */
-.proj{background:var(--raise);border:1px solid var(--rule);border-radius:12px;padding:28px 30px;margin-bottom:20px}
-.proj-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px}
-.proj h3{font-family:var(--display);font-weight:600;font-size:1.2rem;letter-spacing:-.01em}
-.proj .stack{font-family:var(--util);font-size:.71rem;color:var(--ink-3);letter-spacing:.04em}
-.chain{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
-.link{padding:0 22px;border-left:1px solid var(--rule)}
-.link:first-child{padding-left:0;border-left:none}
-.link .k{font-family:var(--util);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:9px}
-.link p{font-size:.96rem;color:var(--ink-2);line-height:1.55}
-.link.out{background:linear-gradient(90deg,var(--deep-soft),rgba(229,228,252,0) 94%);margin:-10px -16px -10px 0;padding:10px 22px;border-radius:0 8px 8px 0}
-.link.out .k{color:var(--deep)}
-.link.out p{color:var(--ink)}
-@media(max-width:720px){
-  .chain{grid-template-columns:1fr}
-  .link{padding:16px 0 0;border-left:none;border-top:1px solid var(--rule);margin-top:16px}
-  .link:first-child{padding-top:0;border-top:none;margin-top:0}
-  .link.out{margin:16px 0 0;padding:16px;border-radius:8px;background:var(--deep-soft);border-top:none}
-}
-
-/* projet phare */
-.proj.featured{border-color:var(--deep);box-shadow:0 1px 0 var(--deep)}
-.badge{display:inline-block;font-family:var(--util);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--deep);background:var(--deep-soft);padding:4px 9px;border-radius:100px;margin-bottom:10px}
-.proj-links{margin-top:20px;display:flex;flex-wrap:wrap;gap:6px 24px;font-family:var(--util);font-size:.82rem}
-.proj-links a{min-height:44px;display:inline-flex;align-items:center}
-.proj-links a::after{content:"→";margin-left:.4em}
-
-/* expérience */
-.job{display:grid;grid-template-columns:200px 1fr;gap:26px;padding:24px 0;border-top:1px solid var(--rule)}
-.job:first-of-type{border-top:none;padding-top:0}
-.job .when{font-family:var(--util);font-size:.74rem;color:var(--ink-3);letter-spacing:.03em;line-height:1.7}
-.job h3{font-family:var(--display);font-weight:600;font-size:1.1rem;margin-bottom:3px}
-.job .role{font-size:.94rem;color:var(--ink-2);font-style:italic;margin-bottom:12px}
-.job ul{list-style:none}
-.job li{position:relative;padding-left:19px;margin-bottom:8px;font-size:.98rem;color:var(--ink-2)}
-.job li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1px;background:var(--deep)}
-@media(max-width:720px){.job{grid-template-columns:1fr;gap:10px}}
-
-/* boîte à outils */
-.tools{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
-.tool{padding:16px 0;border-top:1px solid var(--rule)}
-.tool .k{font-family:var(--util);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--deep);display:block;margin-bottom:6px}
-.tool p{font-size:.96rem;color:var(--ink-2)}
-@media(max-width:720px){.tools{grid-template-columns:1fr}}
-
-/* formation */
-.edu{padding:16px 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:200px 1fr;gap:26px}
-.edu .when{font-family:var(--util);font-size:.74rem;color:var(--ink-3)}
-.edu b{font-weight:600}
-.edu span{display:block;color:var(--ink-2);font-size:.95rem}
-@media(max-width:720px){.edu{grid-template-columns:1fr;gap:6px}}
-
-/* ressources */
-.res{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.res a{display:block;background:var(--raise);border:1px solid var(--rule);border-radius:10px;padding:22px 24px;color:var(--ink)}
-.res a:hover{border-color:var(--deep);text-decoration:none}
-.res h3{font-family:var(--display);font-weight:600;font-size:1.04rem;margin-bottom:8px}
-.res p{font-size:.93rem;color:var(--ink-2)}
-.res .go{font-family:var(--util);font-size:.72rem;color:var(--deep);margin-top:12px;display:block}
-@media(max-width:720px){.res{grid-template-columns:1fr}}
-
-/* figures */
-figure{margin:24px 0 0}
-figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:8px;background:var(--raise)}
-figure figcaption{font-size:.9rem;color:var(--ink-2);margin-top:11px;line-height:1.5}
-figure figcaption b{color:var(--ink);font-weight:600}
-.shots{display:grid;gap:22px}
-
-/* contact */
-footer{padding:64px 0 78px;border-top:1px solid var(--rule)}
-footer h2{margin-bottom:14px}
-footer p.pitch{color:var(--ink-2);max-width:54ch;margin-bottom:26px}
-.reach{display:flex;flex-wrap:wrap;gap:4px 26px;font-family:var(--util);font-size:.86rem}
-.reach a{min-height:44px;display:inline-flex;align-items:center}
-.colophon{margin-top:52px;font-family:var(--util);font-size:.7rem;color:var(--ink-3);letter-spacing:.04em}
-/* mobile : densité */
-@media(max-width:720px){
-  .hero-actions{display:flex;flex-direction:column-reverse}
-  .hero-actions .cta{margin-top:22px}
-  .hero-actions .tags{margin-top:20px}
-  body{font-size:17px}
-  header{padding:52px 0 40px}
-  .name{margin-bottom:26px}
-  .lede{margin-top:22px;font-size:1.06rem}
-  .cta{gap:10px 18px}
-  section{padding:38px 0}
-  .sec-label{margin-bottom:18px}
-  h2{margin-bottom:10px}
-  .intro{margin-bottom:26px}
-  .proj{padding:22px 20px}
-  footer{padding:40px 0 52px}
-  .colophon{margin-top:34px}
-}
-</style>
+<title>Karl Akpovi · Data Analyst</title>
+<meta name="description" content="Karl Akpovi, data analyst en business intelligence. Power BI, SQL, dbt, BigQuery, Python. Disponible en Île-de-France ou en télétravail.">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="page">
 
-<header><div class="wrap">
-  <p class="name">Karl Akpovi · Data Analyst</p>
-  <h1 class="thesis"><span class="from">Une question métier floue.</span> <span class="arrow" aria-hidden="true">↓</span> <span class="to">Une décision qu'on peut défendre.</span></h1>
-  <p class="lede">C'est le trajet que je fais tous les jours, de la modélisation de la donnée jusqu'à la restitution, avec une obsession : <b>qu'un chiffre serve à trancher</b>, pas seulement à être affiché. Deux ans d'alternance à la direction technique d'Orange, titre RNCP niveau 6 en poche. <b>Disponible dès maintenant</b>, en Île-de-France ou en télétravail.</p>
-  <div class="hero-actions">
-  <div class="tags">
-    <span class="tag">Power BI · DAX</span>
-    <span class="tag">SQL</span>
-    <span class="tag">dbt · Snowflake</span>
-    <span class="tag">BigQuery · GCP</span>
-    <span class="tag">Python · scikit-learn</span>
-  </div>
-  <div class="cta">
-    <a class="primary" href="mailto:karl.akpovi@gmail.com">Me contacter</a>
-    <a class="ghost" href="#projets">Voir les projets</a>
-    <a class="ghost" href="https://www.linkedin.com/in/karlakpovi">LinkedIn</a>
-    <a class="ghost" href="https://github.com/karlfring">GitHub</a>
-  </div>
-  </div>
-</div></header>
+<header>
+  <h1>Karl Akpovi</h1>
+  <p class="role">Data Analyst, business intelligence</p>
+  <p>J'ai été formé en alternance à la direction technique d'Orange, de 2024 à 2026. J'y ai travaillé sur toute la chaîne de la donnée : collecte, modélisation dans BigQuery, puis tableaux de bord Power BI pour les équipes métier.</p>
+  <p>Titre RNCP niveau 6 obtenu. Disponible immédiatement, en Île-de-France ou en télétravail.</p>
+  <p class="links">
+    <a href="mailto:karl.akpovi@gmail.com">karl.akpovi@gmail.com</a>
+    <a href="https://www.linkedin.com/in/karlakpovi">LinkedIn</a>
+    <a href="https://github.com/karlfring">GitHub</a>
+  </p>
+</header>
 
 <main>
-<section id="projets"><div class="wrap">
-  <p class="sec-label">Projets</p>
-  <h2>Cinq projets, cinq décisions</h2>
-  <p class="intro">Je les présente dans l'ordre qui compte pour celui qui recrute : la question posée, ce que j'ai construit, et ce que le résultat permet de décider. Le premier est un projet personnel que je fais vivre chaque mois ; les autres sont issus de ma formation.</p>
+<h2 id="projets">Projets</h2>
+<p>Un projet personnel que je mets à jour chaque mois, puis quatre projets réalisés pendant ma formation.</p>
 
-  <article class="proj featured">
-    <div class="proj-top">
-      <div>
-        <span class="badge">Projet personnel · mis à jour chaque mois</span>
-        <h3>Observatoire du métagame Pokémon VGC</h3>
-      </div>
-      <span class="stack">Python · pandas · GitHub Actions · modèle en étoile · Power BI</span>
-    </div>
-    <div class="chain">
-      <div class="link"><span class="k">La question</span><p>Sur un marché qui se réorganise chaque mois, qu'est-ce qui a changé, et qui adopte les nouveautés en premier ? Aucune source ne garde l'historique.</p></div>
-      <div class="link"><span class="k">Ce que j'ai construit</span><p>Un pipeline Python testé et automatisé qui archive chaque mois près de 450 000 équipes, un modèle en étoile traçable et un tableau de bord interactif.</p></div>
-      <div class="link out"><span class="k">La décision rendue possible</span><p>Distinguer ce qui est populaire de ce que l'élite adopte en premier, comme on distingue part de marché et adoption par le segment le plus exigeant.</p></div>
-    </div>
-    <figure>
-      <a href="vgc.html"><img src="img/vgc-apercu.webp" width="1100" height="397" loading="lazy" decoding="async" alt="Haut du tableau de bord de l'observatoire : synthèse, podium des Pokémon les plus joués et indicateurs clés."></a>
-    </figure>
-    <div class="proj-links">
-      <a href="vgc.html">Lire l'étude de cas</a>
-      <a href="https://github.com/karlfring/vgc-meta-observatory">Voir le code</a>
-    </div>
-  </article>
+<section class="project">
+  <h3>Observatoire du métagame Pokémon VGC (projet personnel)</h3>
+  <p class="meta">Python, pandas, GitHub Actions, modèle en étoile, Power BI</p>
+  <p><strong>Contexte.</strong> Smogon publie chaque mois les statistiques du jeu compétitif Pokémon, mais aucun site n'en garde l'historique. On ne peut donc pas suivre ce qui change d'un mois à l'autre.</p>
+  <p><strong>Réalisation.</strong> Un pipeline Python qui récupère les fichiers chaque mois (près de 450 000 équipes en septembre 2026), les transforme en modèle en étoile et les archive sur GitHub. Il est couvert par 15 tests et s'exécute tout seul grâce à GitHub Actions. Les données alimentent un tableau de bord.</p>
+  <p><strong>Résultat.</strong> On distingue les Pokémon simplement populaires de ceux que les meilleurs joueurs adoptent en premier. C'est la même question que comparer la part de marché d'un produit à son adoption par les clients les plus exigeants.</p>
+  <figure>
+    <a href="vgc.html"><img src="img/vgc-apercu.webp" width="1100" height="397" loading="lazy" decoding="async" alt="Haut du tableau de bord de l'observatoire : synthèse, podium des Pokémon les plus joués et indicateurs clés."></a>
+  </figure>
+  <p class="links"><a href="vgc.html">Étude de cas</a><a href="https://github.com/karlfring/vgc-meta-observatory">Code source</a></p>
+</section>
 
-  <article class="proj">
-    <div class="proj-top">
-      <h3>Accès mondial à l'eau potable</h3>
-      <span class="stack">Power BI · DAX · modèle en étoile</span>
-    </div>
-    <div class="chain">
-      <div class="link"><span class="k">La question</span><p>Une ONG dispose de vingt ans de données OMS et FAO sur l'accès à l'eau. Où concentrer des moyens limités ?</p></div>
-      <div class="link"><span class="k">Ce que j'ai construit</span><p>Un tableau de bord de quatre pages : modèle en étoile, quatorze mesures DAX, thème accessible aux daltonismes.</p></div>
-      <div class="link out"><span class="k">La décision rendue possible</span><p>Identifier les zones prioritaires et arbitrer entre couverture large et intensité locale.</p></div>
-    </div>
-    <div class="shots">
-    <figure>
-      <img src="img/dwfa-ciblage.webp" width="1098" height="628" loading="lazy" decoding="async" alt="Nuage de points croisant accès basique et accès sécurisé, chaque pays étant classé en création, modernisation, consulting ou cas mixte.">
-      <figcaption><b>Comment se lit ce graphique.</b> Chaque bulle est un pays. En abscisse l'accès basique à l'eau, en ordonnée l'accès sécurisé. Les pays situés en bas à gauche, en orange, cumulent les deux retards : c'est là qu'il faut créer des infrastructures. Ceux du haut à droite n'ont plus besoin que d'accompagnement. La page transforme ainsi deux indicateurs en une règle d'affectation des moyens.</figcaption>
-    </figure>
-    <figure>
-      <img src="img/dwfa-vue-monde.webp" width="1086" height="614" loading="lazy" decoding="async" alt="Page monde du tableau de bord : indicateurs clés, carte mondiale et classements des pays les plus en retard et les plus peuplés sans accès.">
-      <figcaption><b>La page d'entrée.</b> Les titres portent la conclusion plutôt que le nom de la mesure, pour qu'un décideur pressé sache quoi retenir sans lire les axes.</figcaption>
-    </figure>
-    </div>
-  </article>
+<section class="project">
+  <h3>Accès mondial à l'eau potable</h3>
+  <p class="meta">Power BI, DAX, modèle en étoile</p>
+  <p><strong>Contexte.</strong> Une ONG dispose de vingt ans de données OMS et FAO sur l'accès à l'eau et doit décider où concentrer ses moyens.</p>
+  <p><strong>Réalisation.</strong> Un tableau de bord Power BI de quatre pages, avec un modèle en étoile, quatorze mesures DAX et un thème lisible par les personnes daltoniennes.</p>
+  <p><strong>Résultat.</strong> Les zones prioritaires sont identifiées, et l'ONG peut arbitrer entre une couverture large et une intervention plus ciblée.</p>
+  <figure>
+    <img src="img/dwfa-ciblage.webp" width="1098" height="628" loading="lazy" decoding="async" alt="Nuage de points croisant accès basique et accès sécurisé, chaque pays étant classé en création, modernisation, consulting ou cas mixte.">
+    <figcaption>Chaque bulle est un pays, avec l'accès basique à l'eau en abscisse et l'accès sécurisé en ordonnée. Les pays en bas à gauche, en orange, cumulent les deux retards : c'est là qu'il faut construire des infrastructures.</figcaption>
+  </figure>
+  <figure>
+    <img src="img/dwfa-vue-monde.webp" width="1086" height="614" loading="lazy" decoding="async" alt="Page monde du tableau de bord : indicateurs clés, carte mondiale et classements des pays les plus en retard et les plus peuplés sans accès.">
+    <figcaption>Page d'accueil du rapport. Chaque titre donne la conclusion du graphique plutôt que le nom de la mesure.</figcaption>
+  </figure>
+</section>
 
-  <article class="proj">
-    <div class="proj-top">
-      <h3>Étude de marché à l'international</h3>
-      <span class="stack">Python · scikit-learn · ACP · clustering</span>
-    </div>
-    <div class="chain">
-      <div class="link"><span class="k">La question</span><p>Un industriel agroalimentaire veut exporter. Parmi cent soixante-six pays, lesquels approcher en premier ?</p></div>
-      <div class="link"><span class="k">Ce que j'ai construit</span><p>Une analyse en composantes principales, puis une classification hiérarchique et un k-means, aboutissant à un score d'attractivité.</p></div>
-      <div class="link out"><span class="k">La décision rendue possible</span><p>Un top quinze de pays cibles argumenté, avec une pondération discutable par le métier plutôt qu'imposée par l'analyste.</p></div>
-    </div>
-  </article>
+<section class="project">
+  <h3>Étude de marché à l'international</h3>
+  <p class="meta">Python, scikit-learn, ACP, clustering</p>
+  <p><strong>Contexte.</strong> Un industriel de l'agroalimentaire veut exporter et doit choisir ses premiers pays cibles parmi 166.</p>
+  <p><strong>Réalisation.</strong> Une analyse en composantes principales, une classification hiérarchique et un k-means, puis un score d'attractivité par pays.</p>
+  <p><strong>Résultat.</strong> Une liste de quinze pays prioritaires, avec une pondération que l'équipe métier peut ajuster.</p>
+</section>
 
-  <article class="proj">
-    <div class="proj-top">
-      <h3>DATAImmo, pipeline lakehouse</h3>
-      <span class="stack">Databricks · PySpark · SQL · Delta</span>
-    </div>
-    <div class="chain">
-      <div class="link"><span class="k">La question</span><p>Trois sources publiques hétérogènes sur l'immobilier. Peut-on en faire une base fiable pour analyser un marché ?</p></div>
-      <div class="link"><span class="k">Ce que j'ai construit</span><p>Un pipeline d'ingestion et de transformation en tables normalisées, avec contrôles d'intégrité, dictionnaire de données et douze requêtes métier.</p></div>
-      <div class="link out"><span class="k">La décision rendue possible</span><p>Interroger le marché sans repasser par un traitement manuel à chaque nouvelle question.</p></div>
-    </div>
-  </article>
+<section class="project">
+  <h3>DATAImmo, pipeline de données immobilières</h3>
+  <p class="meta">Databricks, PySpark, SQL, Delta Lake</p>
+  <p><strong>Contexte.</strong> Trois sources publiques sur l'immobilier, chacune dans un format différent.</p>
+  <p><strong>Réalisation.</strong> Un pipeline d'ingestion et de transformation qui produit des tables normalisées, avec des contrôles d'intégrité, un dictionnaire de données et douze requêtes métier.</p>
+  <p><strong>Résultat.</strong> Une base fiable, qu'on peut interroger sans retraitement manuel.</p>
+</section>
 
-  <article class="proj">
-    <div class="proj-top">
-      <h3>Pipeline analytique conforme au RGPD</h3>
-      <span class="stack">dbt · Snowflake · données INSEE</span>
-    </div>
-    <div class="chain">
-      <div class="link"><span class="k">La question</span><p>Une population d'apprenants reflète-t-elle la population française, ou seulement ceux qu'on sait déjà attirer ?</p></div>
-      <div class="link"><span class="k">Ce que j'ai construit</span><p>Un pipeline dbt sur Snowflake calculant un indice de représentativité face aux données INSEE, documenté et conforme au RGPD.</p></div>
-      <div class="link out"><span class="k">La décision rendue possible</span><p>Cibler le recrutement là où l'écart est le plus fort, sur une mesure plutôt que sur une intuition.</p></div>
-    </div>
-  </article>
+<section class="project">
+  <h3>Pipeline analytique conforme au RGPD</h3>
+  <p class="meta">dbt, Snowflake, données INSEE</p>
+  <p><strong>Contexte.</strong> Une population d'apprenants est-elle représentative de la population française ?</p>
+  <p><strong>Réalisation.</strong> Un pipeline dbt sur Snowflake qui calcule un indice de représentativité à partir des données INSEE, documenté et conforme au RGPD.</p>
+  <p><strong>Résultat.</strong> Les écarts les plus importants sont mesurés, ce qui permet de mieux cibler le recrutement.</p>
+</section>
 
-  <p class="intro" style="margin:26px 0 0">Deux autres projets complètent ce panorama : une détection d'anomalies sur mesures physiques comparant régression logistique et k plus proches voisins, et une analyse statistique de ventes avec cinq études de corrélation et tests d'hypothèses.</p>
-</div></section>
+<p class="small">Également réalisés pendant la formation : une détection d'anomalies sur des mesures physiques (régression logistique et k plus proches voisins) et une analyse statistique de ventes (corrélations et tests d'hypothèses).</p>
 
-<section><div class="wrap">
-  <p class="sec-label">Parcours</p>
-  <h2>Où j'ai appris ce métier</h2>
-
-  <div class="job">
-    <p class="when">Sept. 2024 à sept. 2026<br>Lyon</p>
-    <div>
-      <h3>Orange, direction technique France</h3>
-      <p class="role">Data Analyst en alternance, pilotage et visualisation stratégique</p>
-      <ul>
-        <li>Conception et alimentation d'un gisement de données multi-sources sous GCP et BigQuery, servant de socle au pilotage des équipes métiers.</li>
-        <li>Développement et maintenance de tableaux de bord Power BI pour le suivi des indicateurs et l'aide à la décision.</li>
-        <li>Traduction des besoins métiers en indicateurs actionnables. C'est là que j'ai compris que la plupart des désaccords ne portent pas sur les données mais sur les définitions : le vrai travail consistait à harmoniser avant de restituer.</li>
-      </ul>
-    </div>
+<h2 id="experience">Expérience</h2>
+<div class="cv">
+  <p class="when">Sept. 2024 à sept. 2026<br>Lyon</p>
+  <div>
+    <h3>Orange, direction technique France</h3>
+    <p class="meta">Data Analyst en alternance</p>
+    <ul>
+      <li>Conception et alimentation d'une base de données multi-sources sous GCP et BigQuery, utilisée pour le pilotage des équipes métier.</li>
+      <li>Développement et maintenance de tableaux de bord Power BI pour le suivi des indicateurs.</li>
+      <li>Recueil des besoins et définition des indicateurs avec les équipes métier, en particulier l'harmonisation des définitions entre services.</li>
+    </ul>
   </div>
-
-  <div class="job">
-    <p class="when">2022 à 2023<br>Paris</p>
-    <div>
-      <h3>Le Wagon, projet de fin de bootcamp</h3>
-      <p class="role">Analyse de rétention pour une néo-banque</p>
-      <ul>
-        <li>Identification des points de rupture dans le parcours client et recommandations business associées, en SQL, Python et Power BI.</li>
-      </ul>
-    </div>
+  <p class="when">2022 à 2023<br>Paris</p>
+  <div>
+    <h3>Le Wagon</h3>
+    <p class="meta">Projet de fin de bootcamp</p>
+    <ul><li>Analyse de la rétention client d'une néo-banque et recommandations, avec SQL, Python et Power BI.</li></ul>
   </div>
-
-  <div class="job">
-    <p class="when">Oct. 2020 à janv. 2021<br>Paris</p>
-    <div>
-      <h3>Douka Paris</h3>
-      <p class="role">Web analytics</p>
-      <ul>
-        <li>Segmentation clients et prospects, ciblage comportemental, gestion des budgets Google Ads et intégration de partenaires e-commerce.</li>
-      </ul>
-    </div>
+  <p class="when">Oct. 2020 à janv. 2021<br>Paris</p>
+  <div>
+    <h3>Douka Paris</h3>
+    <p class="meta">Web analytics</p>
+    <ul><li>Segmentation des clients et prospects, ciblage et gestion des budgets Google Ads.</li></ul>
   </div>
-</div></section>
+</div>
 
-<section><div class="wrap">
-  <p class="sec-label">Boîte à outils</p>
-  <h2>Ce que je sais faire, par étape</h2>
-  <p class="intro">Rangé selon le trajet de la donnée, parce que c'est ainsi que je travaille : rien ne sert de soigner une restitution posée sur un modèle bancal.</p>
-  <div class="tools">
-    <div class="tool"><span class="k">Modéliser</span><p>SQL, dbt, Snowflake, BigQuery, GCP, Databricks, modélisation en étoile, dictionnaire de données, tests et automatisation (pytest, GitHub Actions)</p></div>
-    <div class="tool"><span class="k">Analyser</span><p>Python (pandas, scikit-learn), statistiques et tests d'hypothèses, ACP, clustering, détection d'anomalies</p></div>
-    <div class="tool"><span class="k">Restituer</span><p>Power BI (DAX, Power Query), Looker Studio, data storytelling, conception orientée décision</p></div>
-    <div class="tool"><span class="k">Cadrer et transmettre</span><p>Reformulation du besoin, documentation, conformité RGPD, Git, formation d'utilisateurs métiers</p></div>
-  </div>
-</div></section>
+<h2 id="competences">Compétences</h2>
+<ul>
+  <li><strong>Données :</strong> SQL, dbt, Snowflake, BigQuery, GCP, Databricks, modélisation en étoile</li>
+  <li><strong>Analyse :</strong> Python (pandas, scikit-learn), statistiques, ACP, clustering</li>
+  <li><strong>Restitution :</strong> Power BI (DAX, Power Query), Looker Studio</li>
+  <li><strong>Méthode :</strong> Git, tests automatisés (pytest), GitHub Actions, documentation, RGPD</li>
+</ul>
 
-<section><div class="wrap">
-  <p class="sec-label">Ressources</p>
-  <h2>Deux documents que j'utilise vraiment</h2>
-  <p class="intro">Un projet dit ce qu'on a produit, une méthode dit comment on travaille. Ces deux documents sont les miens, écrits pour être appliqués par une équipe.</p>
-  <div class="res">
-    <a href="procedure-graphique-analyse.html">
-      <h3>Mes standards de data visualisation</h3>
-      <p>Comment je conçois un graphique lisible et honnête : choix du visuel selon la question, hiérarchie de lecture, contrôles avant diffusion, pièges d'interprétation.</p>
-      <span class="go">Lire la procédure</span>
-    </a>
-    <a href="kit-onboarding-powerbi.html">
-      <h3>Mon kit de formation Power BI</h3>
-      <p>Le parcours que je fais suivre à un référent métier non technicien pour qu'il devienne autonome sur ses propres indicateurs, en quarante-cinq minutes.</p>
-      <span class="go">Lire le kit</span>
-    </a>
-  </div>
-</div></section>
+<h2 id="ressources">Documents de méthode</h2>
+<ul>
+  <li><a href="procedure-graphique-analyse.html">Procédure pour créer un graphique d'analyse</a> : choix du graphique, hiérarchie de lecture, contrôles avant diffusion.</li>
+  <li><a href="kit-onboarding-powerbi.html">Kit de formation Power BI</a> : un parcours de 45 minutes pour rendre un référent métier autonome sur ses indicateurs.</li>
+</ul>
 
-<section><div class="wrap">
-  <p class="sec-label">Formation</p>
-  <h2>Diplômes et langues</h2>
-  <div class="edu"><p class="when">2024 à 2026</p><div><b>Titre RNCP niveau 6 Data Analyst, spécialisation BI, obtenu</b><span>OpenClassrooms et CFA Orange, Lyon. Python, SQL, Power BI, BigQuery, data visualisation, stratégie et finance.</span></div></div>
-  <div class="edu"><p class="when">2022 à 2023</p><div><b>Bootcamp Data Analytics</b><span>Le Wagon, Paris. SQL, Python, Looker Studio, Power BI, BigQuery.</span></div></div>
-  <div class="edu"><p class="when">2018 à 2022</p><div><b>Licence Économie et Gestion</b><span>Université Paris-Est Créteil. Mathématiques, statistiques, économétrie, comptabilité, management.</span></div></div>
-  <div class="edu"><p class="when">Langues</p><div><b>Français langue maternelle, anglais professionnel, espagnol intermédiaire</b><span>Poste recherché en Île-de-France ou en télétravail.</span></div></div>
-</div></section>
+<h2 id="formation">Formation</h2>
+<div class="cv">
+  <p class="when">2024 à 2026</p>
+  <div><h3>Titre RNCP niveau 6 Data Analyst, spécialisation BI</h3><p class="meta">OpenClassrooms et CFA Orange, Lyon</p></div>
+  <p class="when">2022 à 2023</p>
+  <div><h3>Bootcamp Data Analytics</h3><p class="meta">Le Wagon, Paris</p></div>
+  <p class="when">2018 à 2022</p>
+  <div><h3>Licence Économie et Gestion</h3><p class="meta">Université Paris-Est Créteil</p></div>
+</div>
+<p><strong>Langues :</strong> français (langue maternelle), anglais professionnel, espagnol intermédiaire.</p>
 
+<h2 id="contact">Contact</h2>
+<p>Je cherche un poste de data analyst en Île-de-France ou en télétravail.</p>
+<p class="links">
+  <a href="mailto:karl.akpovi@gmail.com">karl.akpovi@gmail.com</a>
+  <a href="https://www.linkedin.com/in/karlakpovi">LinkedIn</a>
+  <a href="https://github.com/karlfring">GitHub</a>
+</p>
 </main>
 
-<footer><div class="wrap">
-  <h2>Parlons-en</h2>
-  <p class="pitch">Je cherche un poste de data analyst orienté décision, disponible dès maintenant. Si votre sujet consiste à rendre une décision plus sûre à partir de données imparfaites, c'est exactement ce qui m'intéresse.</p>
-  <div class="reach">
-    <a href="mailto:karl.akpovi@gmail.com">karl.akpovi@gmail.com</a>
-    <a href="https://www.linkedin.com/in/karlakpovi">linkedin.com/in/karlakpovi</a>
-    <a href="https://github.com/karlfring">github.com/karlfring</a>
-  </div>
-  <p class="colophon">Karl Akpovi · Data Analyst, Decision Analytics et BI · 2026</p>
-</div></footer>
-
+<footer>Karl Akpovi, 2026</footer>
+</div>
 </body>
 </html>
