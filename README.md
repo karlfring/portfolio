@@ -27,8 +27,8 @@ secondaires restent en HTML et CSS statiques.
   reste figé.
 - Les captures sont servies en 800 px sur mobile et en pleine taille sur
   ordinateur.
-- L'ancienne page d'accueil en HTML reste disponible dans l'historique, sous
-  le tag `version-html`.
+- L'ancienne page d'accueil en HTML reste disponible sur la branche
+  `version-html`.
 
 ## Contact
 
