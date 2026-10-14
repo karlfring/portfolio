@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suivi Yan Diomande · Karl Akpovi</title>
+<meta name="description" content="Étude de cas : un pipeline Python qui récupère chaque match de Yan Diomande par une API, archive les données brutes et alimente un tableau de bord interactif.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+<a class="back" href="./">Retour au portfolio</a>
+
+<header class="hero">
+  <div>
+  <h1>Suivi Yan Diomande</h1>
+  <p class="role">L'impact d'un ailier, match après match. Projet personnel, octobre 2026.</p>
+  <p class="meta">Python, pandas, API REST, GitHub Actions, modèle en étoile, D3.js</p>
+  <p>Yan Diomande, ailier international ivoirien, a disputé la saison 2025-26 au RB Leipzig avant de rejoindre le Real Madrid. J'ai construit un pipeline qui récupère chacun de ses matchs, archive les données brutes et alimente un tableau de bord, pour suivre son impact et son évolution d'un match à l'autre.</p>
+  <p class="links"><a href="https://github.com/karlfring/diomande-tracker">Code source et documentation</a></p>
+  </div>
+  <figure class="illus">
+    <img src="img/diomande-photo.webp" width="360" height="450" decoding="async" alt="Yan Diomande en tenue de la Côte d'Ivoire, lors de la Coupe du monde 2026.">
+    <figcaption>Photo : <a href="https://commons.wikimedia.org/wiki/File:Yan_Diomande_Cote_D%27Ivoire_v_Ecuador_14_June_2026-17_(cropped).jpg">Bryan Berlin / WikiPortraits</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">CC BY-SA 4.0</a></figcaption>
+  </figure>
+</header>
+
+<main>
+<h2>Chiffres clés de la saison 2025-26</h2>
+<table>
+  <tbody>
+    <tr><td>Matchs officiels suivis (Bundesliga et DFB Pokal)</td><td class="num">38</td></tr>
+    <tr><td>Matchs joués, dont titulaire</td><td class="num">36, dont 31</td></tr>
+    <tr><td>Minutes jouées</td><td class="num">2&nbsp;717</td></tr>
+    <tr><td>Buts, pour un total de xG de</td><td class="num">13 pour 7,3</td></tr>
+    <tr><td>Passes décisives, pour un total de xA de</td><td class="num">9 pour 9,9</td></tr>
+    <tr><td>Requêtes à l'API pour une saison complète</td><td class="num">environ 45</td></tr>
+    <tr><td>Tests automatisés (pytest)</td><td class="num">24</td></tr>
+  </tbody>
+</table>
+
+<h2>Pourquoi ce projet</h2>
+<p>Un total de fin de saison ne dit pas tout. Treize buts peuvent venir d'un joueur régulier ou de quelques matchs exceptionnels, et d'occasions faciles ou difficiles. Je voulais voir la saison de Yan Diomande match par match, et comparer ce qu'il a réellement produit à ce que ses occasions laissaient attendre.</p>
+<p>Son arrivée au Real Madrid ajoute une question : son impact se maintiendra-t-il dans une nouvelle équipe ? Le projet est conçu pour accueillir une seconde saison sans rien reconstruire.</p>
+<p>Le problème se transpose directement au suivi d'une activité :</p>
+<table>
+  <thead><tr><th>Dans le football</th><th>Dans une entreprise</th></tr></thead>
+  <tbody>
+    <tr><td>Buts et passes décisives</td><td>Ventes réalisées</td></tr>
+    <tr><td>xG et xA, la valeur des occasions</td><td>Ventes attendues d'après le pipeline commercial</td></tr>
+    <tr><td>Écart entre buts et xG</td><td>Écart entre réalisé et prévisionnel</td></tr>
+    <tr><td>Statistiques par 90 minutes</td><td>Indicateurs ramenés à l'heure ou au client</td></tr>
+    <tr><td>Moyenne sur les cinq derniers matchs</td><td>Moyenne mobile, pour lire la tendance</td></tr>
+    <tr><td>Un nouveau club</td><td>Un nouveau marché ou une nouvelle équipe</td></tr>
+  </tbody>
+</table>
+
+<h2>Fonctionnement</h2>
+<ol>
+  <li><strong>Choix de la source.</strong> API-Football ne donne pas les saisons récentes dans son offre gratuite, Understat interdit l'accès automatisé dans son fichier robots.txt, et je ne contourne pas les protections contre les robots. J'ai retenu l'offre gratuite de Highlightly : 100 requêtes par jour, et pour chaque match un box score avec les statistiques individuelles, xG et xA compris.</li>
+  <li><strong>Identifiants.</strong> Le club et le joueur sont retrouvés par leur nom exact, pour éviter la réserve du club ou un homonyme.</li>
+  <li><strong>Collecte.</strong> Deux requêtes donnent le calendrier de la saison, puis une requête par match terminé récupère son box score. Une saison complète coûte environ 45 requêtes, puis deux ou trois par semaine. Un match déjà archivé n'est jamais redemandé.</li>
+  <li><strong>Traçabilité.</strong> Chaque réponse brute est archivée avec son empreinte SHA-256. Les tables se reconstruisent à partir de cette archive, sans rappeler l'API.</li>
+  <li><strong>Modèle de données.</strong> Un modèle en étoile : une table de faits par match du joueur (statut, minutes, note, statistiques), reliée aux matchs et aux compétitions, et un journal des fichiers ingérés.</li>
+  <li><strong>Automatisation.</strong> GitHub Actions lance les tests, l'ingestion et l'export, puis enregistre les nouvelles données dans le dépôt. Un garde-fou arrête l'ingestion avant d'épuiser le quota, et la clé de l'API reste dans un secret, jamais dans le code.</li>
+  <li><strong>Restitution.</strong> Un tableau de bord interactif (HTML, CSS, JavaScript et D3.js) lit le fichier exporté, une ligne par match officiel, et fait tous ses calculs dans la page.</li>
+</ol>
+<p>Merci à Kevin Rosamont Prombo, Lead Analytics Engineer, qui m'a bien orienté en partageant <a href="https://lnkd.in/p/ePJb4haa">sa méthode et son script</a> pour récupérer les données d'un match.</p>
+
+<h2>Résultats de la saison 2025-26</h2>
+<p>En 36 matchs joués, Yan Diomande a marqué 13 buts et donné 9 passes décisives, soit une contribution toutes les 124 minutes. Sa note moyenne est de 7,71 sur 10.</p>
+<figure>
+  <img src="img/diomande-fig-entete.webp" width="1100" height="512" loading="lazy" decoding="async" alt="En-tête du tableau de bord : photo du joueur, phrase de synthèse, filtre de compétition et cinq chiffres clés (13 buts, 9 passes décisives, 36 matchs joués, 2 717 minutes, 7,71 de note moyenne).">
+  <figcaption>En-tête du tableau de bord : la phrase à retenir et cinq chiffres clés. Le filtre en haut à droite change de compétition pour toute la page.</figcaption>
+</figure>
+
+<h3>La saison, match par match</h3>
+<p>Chaque barre est un match : sa hauteur donne le temps de jeu, les pastilles ses buts et ses passes décisives. Un clic sur une barre, sur un point d'une courbe ou sur une ligne du tableau ouvre la fiche du match. Son meilleur match : 9,96 de note et 3 buts lors de la victoire 6-0 contre l'Eintracht Francfort, le 6 décembre 2025.</p>
+<figure>
+  <img src="img/diomande-fig-saison.webp" width="1100" height="927" loading="lazy" decoding="async" alt="Frise de la saison, une barre par match avec des pastilles orange pour les buts et vertes pour les passes décisives, puis la fiche du match contre l'Eintracht Francfort : score 6-0, note 9,96, 3 buts.">
+  <figcaption>La frise de la saison et la fiche du match sélectionné, avec des raccourcis vers le match précédent, le suivant, son meilleur match et le dernier match joué.</figcaption>
+</figure>
+
+<h3>Buts et passes, comparés aux attentes</h3>
+<p>Ses buts dépassent nettement la valeur de ses occasions : 13 buts pour 7,3 xG, soit 5,7 de plus. Ses passes décisives suivent au contraire la qualité des occasions qu'il a créées : 9 pour 9,9 xA. Un écart aussi large sur une seule saison peut venir de sa finition comme d'une part de réussite. La saison suivante dira s'il se maintient.</p>
+<figure>
+  <img src="img/diomande-fig-attendus.webp" width="1100" height="529" loading="lazy" decoding="async" alt="Courbes cumulées sur la saison : buts (13) au-dessus de l'xG (7,3), passes décisives (9) proches de l'xA (9,9). Écarts affichés : +5,7 et −0,9.">
+  <figcaption>Buts et passes décisives cumulés (traits pleins) face aux xG et xA cumulés (pointillés).</figcaption>
+</figure>
+
+<h3>Ce qu'il produit</h3>
+<p>Ramenées à 90 minutes, ses actions dessinent un ailier qui provoque : 4,3 dribbles réussis et 7,0 duels gagnés par 90 minutes. Il réussit 60&nbsp;% de ses dribbles (130 sur 216), 84&nbsp;% de ses passes (990 sur 1&nbsp;178) et gagne 49&nbsp;% de ses duels (210 sur 429). Une autre section suit sa note match après match, avec sa moyenne sur les cinq derniers matchs.</p>
+<figure>
+  <img src="img/diomande-fig-profil.webp" width="1100" height="520" loading="lazy" decoding="async" alt="Barres horizontales des actions par 90 minutes (tirs, tirs cadrés, passes clés, dribbles réussis, duels gagnés, fautes subies) et trois anneaux de taux de réussite : 60 % des dribbles, 49 % des duels, 84 % des passes.">
+  <figcaption>Actions par 90 minutes, avec un bouton pour passer aux totaux, et taux de réussite.</figcaption>
+</figure>
+
+<h2>Conception du tableau de bord</h2>
+<p>Le tableau de bord reprend l'identité de ce portfolio : bleu marine, police Geist, fond clair. Une idée tirée du sujet structure la page : l'orange et le vert du maillot ivoirien marquent ses buts et ses passes décisives, dans chaque graphique.</p>
+<p>La frise se parcourt au clavier, la page propose un mode sombre et coupe ses animations si l'utilisateur a demandé à les réduire. Je l'ai vérifiée sur des captures à 1&nbsp;440, 640 et 390 pixels de large et en mode sombre, puis en testant chaque interaction.</p>
+<figure class="phone">
+  <img src="img/diomande-fig-mobile.webp" width="600" height="1502" loading="lazy" decoding="async" alt="L'en-tête du tableau de bord sur téléphone : la photo en haut, puis le nom, la phrase de synthèse, le filtre et les cinq chiffres clés sur deux colonnes.">
+  <figcaption>Sur téléphone, la page passe sur une colonne.</figcaption>
+</figure>
+
+<h2>Contrôle qualité</h2>
+<p>J'ai comparé les chiffres du pipeline à une source publiée indépendante, la fiche du joueur sur <a href="https://theanalyst.com/players/6478/yan-diomande">The Analyst</a>.</p>
+<table>
+  <thead><tr><th>Bundesliga 2025-26</th><th class="num">Pipeline</th><th class="num">The Analyst</th></tr></thead>
+  <tbody>
+    <tr><td>Matchs joués</td><td class="num">33</td><td class="num">33</td></tr>
+    <tr><td>Buts</td><td class="num">12</td><td class="num">12</td></tr>
+    <tr><td>Passes décisives</td><td class="num">8</td><td class="num">8</td></tr>
+  </tbody>
+</table>
+<p>Le tableau de bord, filtré sur la Bundesliga, retrouve les mêmes chiffres.</p>
+<p><strong>Trois règles de lecture de la source.</strong> Un xG vide quand il n'a pas tiré vaut 0. Une expulsion compte le rouge direct comme le second jaune. Un box score vide est marqué « données indisponibles » : une absence de données n'est jamais comptée comme une absence du joueur.</p>
+<p><strong>Tests.</strong> Dans GitHub Actions, 24 tests pytest tournent sans réseau avant chaque ingestion. S'ils échouent, aucune donnée n'est enregistrée.</p>
+
+<h2>Limites et suite</h2>
+<ul>
+  <li>Une seule source, dans son offre gratuite : certains résultats peuvent y être masqués. Chaque box score vide est signalé dans le journal d'ingestion.</li>
+  <li>Les notes sont celles de la source, sur son échelle. Ce n'est pas une note officielle.</li>
+  <li>Le tableau de bord lit un fichier exporté : il faut le remplacer après chaque ingestion.</li>
+  <li>Prochaine étape : ajouter sa saison 2026-27 au Real Madrid. J'attends qu'il ait disputé davantage de matchs pour que l'analyse soit solide. Le pipeline et le tableau de bord sont déjà prêts à recevoir une seconde saison.</li>
+  <li>Piste à l'étude : situer ses chiffres par rapport aux autres ailiers des cinq grands championnats européens.</li>
+</ul>
+
+<p class="small">Données : Highlightly Football API, offre gratuite, statistiques individuelles de chaque match. Contrôle : fiche du joueur sur The Analyst. Photo : Bryan Berlin / WikiPortraits, Wikimedia Commons, licence CC BY-SA 4.0, recadrée ; elle apparaît aussi dans les captures de l'en-tête. Projet personnel non commercial, sans lien avec le joueur ni avec ses clubs.</p>
+</main>
+
+<footer>
+  <p class="links">
+    <a href="./">Retour au portfolio</a>
+    <a href="mailto:karl.akpovi@gmail.com">karl.akpovi@gmail.com</a>
+    <a href="https://www.linkedin.com/in/karlakpovi">LinkedIn</a>
+  </p>
+</footer>
+</div>
+</body>
+</html>

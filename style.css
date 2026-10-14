@@ -46,6 +46,7 @@ li { margin-bottom: 6px; }
 figure { margin: 18px 0; }
 figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
 figure.narrow img { max-width: 560px; }
+figure.phone img { max-width: 300px; }
 figcaption { font-size: .92rem; color: var(--muted); margin-top: 8px; }
 
 table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: .95rem; }

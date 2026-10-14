@@ -11,6 +11,7 @@ Chaque projet est présenté en trois temps : contexte, réalisation, résultat.
 | `index.html` | page d'accueil (application React compilée) : projets, expérience, compétences, formation, contact |
 | `assets/` | code compilé de la page d'accueil (JavaScript, CSS, police Geist) |
 | `vgc.html` | étude de cas de [VGC Meta Overview](https://github.com/karlfring/vgc-meta-observatory) |
+| `diomande.html` | étude de cas du [Suivi Yan Diomande](https://github.com/karlfring/diomande-tracker) |
 | `procedure-graphique-analyse.html` | procédure pour créer un graphique d'analyse |
 | `kit-onboarding-powerbi.html` | kit de formation Power BI pour référents métier |
 | `style.css` | feuille de style des pages secondaires |
